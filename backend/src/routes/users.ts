@@ -5,7 +5,6 @@ import { check, validationResult } from "express-validator";
 
 const router = express.Router();
 
-// /api/users/register
 router.post(
   "/register",
   [
@@ -21,9 +20,10 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ message: errors.array() });
     }
+
     try {
       let user = await User.findOne({
-        email: req.body.email, //check the user model in our db and find any documents match the user email in the body of request
+        email: req.body.email,
       });
 
       if (user) {
@@ -43,10 +43,10 @@ router.post(
 
       res.cookie("auth_token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV == "production",
+        secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
-      return res.sendStatus(200);
+      return res.status(200).send({ message: "User registered OK" });
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Something went wrong" });
