@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/MontserratRegular.ttf");
+    font-family: "Montserrat";
+    font-weight: 400;
+  }
+  @font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/MontserratMedium.ttf");
+    font-family: "Montserrat";
+    font-weight: 500;
+  }
+  @font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/MontserratSemiBold.ttf");
+    font-family: "Montserrat";
+    font-weight: 600;
+  }
+
+  @font-face {
+    font-display: swap;
+    font-style: normal;
+    src: url("assets/fonts/TradeGothicLTExtended.ttf");
+    font-family: "Trade Gothic LT Extended";
+    font-weight: 400;
+  }
+
+  body {
+    font-family: 'Montserrat';
+  }

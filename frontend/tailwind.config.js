@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'trade-gothic': ['TradeGothic LT Extended', 'sans-serif'],
-        'Montserrat': ['Montserrat'],
+        'TradeGothic': ['Trade Gothic LT Extended', 'sans-serif'],
+        'Montserrat': ['Montserrat', 'sans-serif'],
       },
       colors: {
         'mint': '#8DD3BB', // Add your custom color here

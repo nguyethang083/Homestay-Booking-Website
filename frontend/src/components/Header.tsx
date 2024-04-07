@@ -48,14 +48,16 @@ const Header = ({ onLoginClick, onSignupClick, onHomeClick }: HeaderProps) => {
                 <Link
                   to="/sign-in"
                   className="flex items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-transparent rounded-xl"
+                  onClick={onLoginClick}
                 >
-                  <button onClick={onLoginClick}>Login</button>
+                  Login
                 </Link>
                 <Link
                   to="/register"
                   className="flex bg-white items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-2 border-mint rounded-xl"
+                  onClick={onSignupClick}
                 >
-                  <button onClick={onSignupClick}>Sign Up</button>
+                  Sign Up
                 </Link>
               </div>
             </>

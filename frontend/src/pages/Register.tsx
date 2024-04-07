@@ -40,11 +40,16 @@ const Register = () => {
   });
 
   return (
-    <div className="flex items-center justify-center">
-      <form className="flex flex-col gap-5" onSubmit={onSubmit}>
-        <h2 className="text-3xl font-bold font-trade-gothic -mb-2">Sign Up</h2>
-        <h2 className="text-xl font-thin mb-1">
-          Set up so you can access your personal account
+    <div className="container mx-auto p-4 flex justify-center min-h-[380px] items-center">
+      <form
+        className="flex flex-col gap-5 shadow-lg md:p-10"
+        onSubmit={onSubmit}
+      >
+        <h2 className="text-4xl font-bold -mb-2 text-center">
+          Join the Adventure!
+        </h2>
+        <h2 className="text-lg opacity-60 mb-3 text-center">
+          Create your account and start your journey with us
         </h2>
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex flex-col">
@@ -142,14 +147,14 @@ const Register = () => {
         <div className="flex flex-col items-center">
           <button
             type="submit"
-            className="bg-mint text-black p-2 font-medium hover:bg-orange-500 hover:text-white w-full text-sm rounded py-2 mt-2"
+            className="bg-mint text-black p-2 font-semibold hover:bg-orange-500 hover:text-white w-full text-sm rounded py-2 mt-2"
           >
             Create account
           </button>
           <div className="mt-4">
-            <span className="text-sm font-medium">
+            <span className="text-sm">
               Already have an account?{" "}
-              <Link className="text-orange-500" to="/sign-in">
+              <Link className="text-orange-500 font-medium" to="/sign-in">
                 Login
               </Link>
             </span>
