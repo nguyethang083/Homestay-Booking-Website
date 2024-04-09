@@ -11,7 +11,7 @@ const DetailsSection = () => {
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold mb-3">Add Hotel</h1>
       <div className="flex gap-4">
-        <label className="text-gray-700 text-sm font-bold flex-2 min-w-[200px]">
+        <label className="text-gray-700 text-sm font-bold flex-2 min-w-[100px]">
           Name
           <input
             type="text"
@@ -22,7 +22,7 @@ const DetailsSection = () => {
             <span className="text-red-500">{errors.name.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-700 text-sm font-bold flex-1 min-w-[150px]">
           City
           <input
             type="text"
@@ -33,7 +33,7 @@ const DetailsSection = () => {
             <span className="text-red-500">{errors.city.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-2">
+        <label className="text-gray-700 text-sm font-bold flex-1 min-w-[150px]">
           Country
           <input
             type="text"

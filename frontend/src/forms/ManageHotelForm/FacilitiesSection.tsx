@@ -13,10 +13,11 @@ const FacilitiesSection = () => {
       <h2 className="text-2xl font-bold mb-3">Facilities</h2>
       <div className="grid grid-cols-5 gap-3">
         {hotelFacilities.map((facility) => (
-          <label className="text-sm flex gap-1 text-gray-700">
+          <label className="text-sm flex gap-1 text-gray-700 items-center font-medium cursor-pointer">
             <input
               type="checkbox"
               value={facility}
+              className="hidden peer"
               {...register("facilities", {
                 validate: (facilities) => {
                   if (facilities && facilities.length > 0) {
@@ -27,6 +28,7 @@ const FacilitiesSection = () => {
                 },
               })}
             />
+            <span className="w-4 h-4 inline-block border rounded border-black mr-2 peer-checked:bg-mint cursor-pointer"></span>
             {facility}
           </label>
         ))}

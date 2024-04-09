@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 import { RatingBar } from "../components/RatingBar";
 import { BsBuilding, BsDash, BsHouse, BsWifi } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export default function MyHotelsPage() {
   const renderIcon = (facility: string) => {
@@ -91,11 +92,9 @@ export default function MyHotelsPage() {
           <div className="flex flex-col items-center self-stretch">
             <div className="mt-20 flex items-start justify-between gap-5 self-stretch p-[5px]">
               <h1 className="text-3xl font-bold mb-3">My Hotels</h1>
-              <a href="add-hotel" target="_blank" rel="noreferrer">
                 <button className="flex bg-white items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-2 border-mint rounded-xl">
-                  Add Hotel
+                  <Link to="/add-hotel">Add Hotel</Link>
                 </button>
-              </a>
             </div>
             <div className="w-full bg-gray-50 ">
               {hotelData.map((hotel) => (
@@ -141,15 +140,12 @@ export default function MyHotelsPage() {
                               </p>
                             </div>
                             <div className="flex justify-end">
-                              <a
-                                href="/edit-hotel/${hotel._id}"
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <button className="flex bg-white items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-2 border-mint rounded-xl">
-                                  View Details
-                                </button>
-                              </a>
+                              <button className="flex bg-white items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-2 border-mint rounded-xl">
+                                <Link to={`/edit-hotel/${hotel._id}`}>
+                                  {" "}
+                                  Edit Details
+                                </Link>
+                              </button>
                             </div>
                           </div>
                         </div>

@@ -10,11 +10,11 @@ const GuestsSection = () => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Guests</h2>
-      <div className="grid grid-cols-2 p-6 gap-5 bg-gray-300">
+      <div className="grid grid-cols-2 p-6 gap-5 bg-mint">
         <label className="text-gray-700 text-sm font-semibold">
           Adults
           <input
-            className="border rounded w-full py-2 px-3 font-normal"
+            className="border rounded border-black w-full py-2 px-3 font-normal"
             type="number"
             min={1}
             {...register("adultCount", {
@@ -30,7 +30,7 @@ const GuestsSection = () => {
         <label className="text-gray-700 text-sm font-semibold">
           Children
           <input
-            className="border rounded w-full py-2 px-3 font-normal"
+            className="border rounded border-black w-full py-2 px-3 font-normal"
             type="number"
             min={0}
             {...register("childCount", {
