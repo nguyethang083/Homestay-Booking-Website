@@ -2,20 +2,14 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 import SignOutButton from "./SignOutButton";
 
-interface HeaderProps {
-  onLoginClick: () => void;
-  onSignupClick: () => void;
-  onHomeClick: () => void;
-}
-
-const Header = ({ onLoginClick, onSignupClick, onHomeClick }: HeaderProps) => {
+const Header = () => {
   const { isLoggedIn } = useAppContext();
 
   return (
     <div className="bg-white py-6">
       <div className="max-w-[1232px] mx-auto flex justify-between">
         <span className="text-3xl text-white font-bold tracking-tight">
-          <Link to="/" onClick={onHomeClick}>
+          <Link to="/">
             {" "}
             <img
               loading="lazy"
@@ -48,14 +42,12 @@ const Header = ({ onLoginClick, onSignupClick, onHomeClick }: HeaderProps) => {
                 <Link
                   to="/sign-in"
                   className="flex items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-transparent rounded-xl"
-                  onClick={onLoginClick}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
                   className="flex bg-white items-center text-black px-6 font-semibold hover:bg-orange-500 hover:text-white border-2 border-mint rounded-xl"
-                  onClick={onSignupClick}
                 >
                   Sign Up
                 </Link>
