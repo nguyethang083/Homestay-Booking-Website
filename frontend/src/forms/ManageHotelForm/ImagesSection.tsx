@@ -25,7 +25,7 @@ const ImagesSection = () => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Images</h2>
-      <div className="border rounded p-4 flex flex-col gap-4 border-black">
+      <div className="border rounded p-4 flex flex-col gap-4 border-mint">
         {existingImageUrls && (
           <div className="grid grid-cols-6 gap-4">
             {existingImageUrls.map((url) => (

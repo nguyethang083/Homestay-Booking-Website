@@ -7,7 +7,7 @@ const Hero = () => {
         alt=""
         className="object-cover absolute inset-0 size-full"
       />
-      <div className="flex relative flex-col mb-36 ml-28 max-md:mb-10 text-center">
+      <div className="flex relative flex-col mb-24 ml-28 max-md:mb-10 text-center">
         <h1 className="mt-12 text-5xl font-bold max-md:max-w-full max-md:text-4xl">
           Make your travel whishlist, we'll do the rest
         </h1>

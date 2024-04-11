@@ -23,18 +23,17 @@ const Layout = ({ children }: Props) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="relative">
-        {showHero && <Hero />}
-        <div className="absolute top-[calc(100%-100px)] w-full md:w-5/6 left-1/2 transform translate-x-[-50%]">
-          {showSearchBar && <SearchBar />}
-        </div>
+      {showHero && <Hero />}
+      <div className="container mx-auto mt-[-50px]">
+        {showSearchBar && <SearchBar />}
       </div>
       <div
-        className={`container mx-auto z-10 w-full px-0 ${
-          showHero && showSearchBar ? "mt-32" : ""
+        className={`container mx-auto py-10 flex-1 ${
+          showSearchBar ? "" : "mt-[50px]"
         }`}
-      ></div>
-      <div className="container mx-auto py-10 flex-1">{children}</div>
+      >
+        {children}
+      </div>
       <Footer />
     </div>
   );

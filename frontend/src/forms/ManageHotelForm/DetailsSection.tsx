@@ -11,33 +11,33 @@ const DetailsSection = () => {
     <div className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold mb-3">Add Hotel</h1>
       <div className="flex gap-4">
-        <label className="text-gray-700 text-sm font-bold flex-2 min-w-[100px]">
+        <label className="text-gray-700 text-sm font-bold flex-2 min-w-[200px]">
           Name
           <input
             type="text"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("name", { required: "This field is required" })}
           ></input>
           {errors.name && (
             <span className="text-red-500">{errors.name.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1 min-w-[150px]">
+        <label className="text-gray-700 text-sm font-bold flex-1">
           City
           <input
             type="text"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("city", { required: "This field is required" })}
           ></input>
           {errors.city && (
             <span className="text-red-500">{errors.city.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1 min-w-[150px]">
+        <label className="text-gray-700 text-sm font-bold flex-2">
           Country
           <input
             type="text"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("country", { required: "This field is required" })}
           ></input>
           {errors.country && (
@@ -49,7 +49,7 @@ const DetailsSection = () => {
         Description
         <textarea
           rows={10}
-          className="border border-black rounded w-full py-1 px-2 font-normal"
+          className="border border-mint rounded w-full py-1 px-2 font-normal"
           {...register("description", { required: "This field is required" })}
         ></textarea>
         {errors.description && (
@@ -62,7 +62,7 @@ const DetailsSection = () => {
           <input
             type="number"
             min={1}
-            className="border border-black rounded w-full py-1 px-1 font-normal h-9"
+            className="border border-mint rounded w-full py-1 px-1 font-normal h-9"
             {...register("pricePerNight", {
               required: "This field is required",
             })}
@@ -78,7 +78,7 @@ const DetailsSection = () => {
             {...register("starRating", {
               required: "This field is required",
             })}
-            className="border border-black rounded w-full p-2 text-gray-700 font-normal h-9"
+            className="border border-mint rounded w-full p-2 text-gray-700 font-normal h-9"
           >
             <option value="" className="text-sm font-bold">
               Select as Rating
