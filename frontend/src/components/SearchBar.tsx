@@ -77,7 +77,7 @@ const SearchBar = () => {
           endDate={checkOut}
           minDate={minDate}
           maxDate={maxDate}
-          placeholderText="Check-in Date"
+          placeholderText="Check-out Date"
           className="min-w-full bg-white p-2 focus:outline-none rounded border border-solid border-zinc-500"
           wrapperClassName="min-w-full"
         />
