@@ -1,23 +1,51 @@
-import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import * as apiClient from "../api-client";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6";
 import { FaBed } from "react-icons/fa6";
 import { FaHotel } from "react-icons/fa6";
+import { fetchMyHotels, removeMyHotelById } from "../api-client";
+import { useAppContext } from "../contexts/AppContext";
+import { useEffect, useState } from "react";
+import { HotelType } from "../../../backend/src/shared/types";
+import { Modal, Button } from "antd";
 
 const MyHotel: React.FC = () => {
-  const { data: hotelData } = useQuery(
-    "fetchMyHotels",
-    apiClient.fetchMyHotels,
-    {
-      onError: () => {},
-    }
-  );
+  const { showToast } = useAppContext();
 
-  if (!hotelData) {
-    return <span>No Hotels found</span>;
-  }
+  const [hotels, setHotels] = useState<HotelType[]>([]);
+
+  const fetchHotels = async () => {
+    const fetchedHotels = await fetchMyHotels();
+    setHotels(fetchedHotels);
+  };
+
+  useEffect(() => {
+    fetchHotels();
+  }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hotelToRemove, setHotelToRemove] = useState<string | null>(null);
+  const removeHotel = (id: string) => {
+    setHotelToRemove(id);
+    setIsModalOpen(true);
+  };
+  const confirmRemoveHotel = async () => {
+    if (!hotelToRemove) return;
+
+    // Remove the hotel from the backend and update the state
+    try {
+      await removeMyHotelById(hotelToRemove);
+      setHotels(hotels.filter((hotel) => hotel._id !== hotelToRemove));
+      showToast({ message: "Hotel removed successfully!", type: "SUCCESS" });
+    } catch (error) {
+      console.error("Failed to remove hotel", error);
+      showToast({ message: "Error removing hotel", type: "ERROR" });
+    }
+
+    // Close the modal and reset hotelToRemove
+    setIsModalOpen(false);
+    setHotelToRemove(null);
+  };
 
   return (
     <div className="space-y-5">
@@ -30,8 +58,11 @@ const MyHotel: React.FC = () => {
           Add Hotel
         </Link>
       </span>
+      <h1 className="text-xl font-bold">
+        You're owning {hotels.length} hotels
+      </h1>
       <div className="flex flex-col gap-8">
-        {hotelData.map((hotel) => (
+        {hotels.map((hotel) => (
           <div
             data-testid="hotel-card"
             className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
@@ -69,18 +100,18 @@ const MyHotel: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-3 ml-5">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
               {hotel.imageUrls.slice(0, 3).map((image) => (
-                <div className="min-h-[200px] min-w-[290px]">
+                <div className="min-h-[200px] min-w-[290px] ml-5">
                   <img
                     src={image}
                     alt={hotel.name}
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center rounded"
                   />
                 </div>
               ))}
             </div>
-            <hr className="mt-8 w-full bg-neutral-900 min-h-[1px] max-md:mt-10 max-md:max-w-full" />
+            <hr className="mt-5 w-11/12 bg-neutral-900 ml-5" />
             <section className="box-border flex relative flex-col shrink-0">
               <div className="flex flex-col px-5 w-full text-neutral-900 max-md:max-w-full">
                 <h2 className="w-full text-xl max-md:max-w-full font-semibold">
@@ -92,21 +123,27 @@ const MyHotel: React.FC = () => {
               </div>
             </section>
             <div className="px-5 mt-8 max-w-full w-[688px]">
-              <div className="flex gap-5 max-md:flex-col max-md:gap-2">
-                <div className="border border-green-300 rounded p-3 flex items-center bg-mint font-medium">
-                  <FaHotel className="mr-1" />
+              <div className="flex gap-3 max-md:flex-col max-md:gap-2">
+                <div className="rounded p-3 flex items-center bg-rose-400 text-white font-semibold">
+                  <FaHotel className="mr-1 " />
                   {hotel.type}
                 </div>
-                <span className="border border-green-300 rounded p-3 flex items-center ">
+                <span className="rounded p-3 flex items-center bg-green-300">
                   <FaBed className="mr-1" />
                   {hotel.adultCount} adults, {hotel.childCount} children
                 </span>
               </div>
             </div>
-            <span className="flex justify-end">
+            <span className="flex justify-end text-lg">
+              <button
+                className="rounded mr-2 flex bg-mint text-black font-medium p-2 hover:bg-orange-500 hover:text-white"
+                onClick={() => removeHotel(hotel._id)}
+              >
+                Remove
+              </button>
               <Link
                 to={`/edit-hotel/${hotel._id}`}
-                className="flex bg-mint text-black text-xl font-medium p-2 hover:bg-orange-500 hover:text-white"
+                className="rounded flex bg-mint text-black font-medium p-2 hover:bg-orange-500 hover:text-white"
               >
                 Edit Details
               </Link>
@@ -114,6 +151,28 @@ const MyHotel: React.FC = () => {
           </div>
         ))}
       </div>
+      <Modal
+        title="Confirm Removal"
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        style={{ top: "30%" }}
+        footer={[
+          <Button key="back" onClick={() => setIsModalOpen(false)}>
+            No, keep it
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={confirmRemoveHotel}
+            className="text-black"
+            style={{ borderColor: "#8DD3BB" }}
+          >
+            Yes, remove it
+          </Button>,
+        ]}
+      >
+        <p>Are you sure you want to remove this hotel?</p>
+      </Modal>
     </div>
   );
 };

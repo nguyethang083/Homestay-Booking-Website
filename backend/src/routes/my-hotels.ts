@@ -134,4 +134,22 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
   return imageUrls;
 }
 
+router.delete("/:id", verifyToken, async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findOneAndDelete({
+      _id: id,
+      userId: req.userId,
+    });
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    res.status(200).json({ message: "Hotel removed successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing hotel" });
+  }
+});
+
 export default router;

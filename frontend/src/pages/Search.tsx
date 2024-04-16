@@ -98,7 +98,6 @@ const Search = () => {
             value={sortOption}
             onChange={(value) => setSortOption(value)}
             style={{ width: 230 }}
-            className="custom-select"
           >
             <Option value="">Sort By</Option>
             <Option value="starRating">Star Rating</Option>
