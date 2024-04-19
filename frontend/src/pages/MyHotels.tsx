@@ -53,7 +53,7 @@ const MyHotel: React.FC = () => {
         <h1 className="text-3xl font-bold">My Hotels</h1>
         <Link
           to="/add-hotel"
-          className="flex bg-mint rounded text-black text-xl font-medium p-2 hover:bg-orange-500 hover:text-white"
+          className="flex bg-mint rounded text-black text-xl font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
         >
           Add Hotel
         </Link>
@@ -128,7 +128,7 @@ const MyHotel: React.FC = () => {
                   <FaHotel className="mr-1 " />
                   {hotel.type}
                 </div>
-                <span className="rounded p-3 flex items-center bg-green-300">
+                <span className="rounded p-3 flex items-center bg-sky-500 text-white">
                   <FaBed className="mr-1" />
                   {hotel.adultCount} adults, {hotel.childCount} children
                 </span>
@@ -136,16 +136,22 @@ const MyHotel: React.FC = () => {
             </div>
             <span className="flex justify-end text-lg">
               <button
-                className="rounded mr-2 flex bg-mint text-black font-medium p-2 hover:bg-orange-500 hover:text-white"
+                className="rounded mr-2 flex bg-white text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
                 onClick={() => removeHotel(hotel._id)}
               >
                 Remove
               </button>
               <Link
                 to={`/edit-hotel/${hotel._id}`}
-                className="rounded flex bg-mint text-black font-medium p-2 hover:bg-orange-500 hover:text-white"
+                className="rounded mr-2 flex bg-mint text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
               >
                 Edit Details
+              </Link>
+              <Link
+                to={`/hotels/${hotel._id}/bookings`}
+                className="rounded flex bg-mint text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
+              >
+                View Bookings
               </Link>
             </span>
           </div>

@@ -98,9 +98,11 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
               selectsStart
               startDate={checkIn}
               endDate={checkOut}
-              minDate={minDate}
+              minDate={
+                new Date(new Date(checkIn).setDate(checkIn.getDate() + 1))
+              } // set minDate to checkIn + 1 day
               maxDate={maxDate}
-              placeholderText="Check-in Date"
+              placeholderText="Check-out Date"
               className="min-w-full bg-white p-2 focus:outline-none"
               wrapperClassName="min-w-full"
             />

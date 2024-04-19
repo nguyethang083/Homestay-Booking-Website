@@ -21,7 +21,7 @@ const FacilitiesFilter = ({ selectedFacilities, onChange }: Props) => {
     : hotelFacilities.slice(0, 5);
 
   return (
-    <div className="space-y-1">
+    <div>
       <h4 className="text-md font-semibold mb-2">Facilities</h4>
       {displayFacilities.map((facility) => (
         <label className="flex items-center space-x-2 text-sm" key={facility}>
@@ -35,7 +35,7 @@ const FacilitiesFilter = ({ selectedFacilities, onChange }: Props) => {
         </label>
       ))}
       <Button
-        className="text-rose-400 font-bold flex items-center justify-center px-0"
+        className="text-sky-500 font-bold flex items-center justify-center px-0"
         type="link"
         onClick={() => setShowAll(!showAll)}
         style={{ fontFamily: "Montserrat" }}

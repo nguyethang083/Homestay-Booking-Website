@@ -10,7 +10,7 @@ const PriceFilter = ({ selectedPrice, onChange }: Props) => {
       <input
         type="range"
         min="1"
-        max="5"
+        max="1000"
         step="1"
         value={selectedPrice || ""}
         onChange={(event) =>

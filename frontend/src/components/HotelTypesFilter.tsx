@@ -19,7 +19,7 @@ const HotelTypesFilter = ({ selectedHotelTypes, onChange }: Props) => {
   const displayHotelTypes = showAll ? hotelTypes : hotelTypes.slice(0, 5);
 
   return (
-    <div className="border-b border-slate-300 pb-5 space-y-1">
+    <div className="border-b border-slate-300 pb-5">
       <h4 className="text-md font-semibold mb-2">Hotel Type</h4>
       {displayHotelTypes.map((hotelType) => (
         <label className="flex items-center space-x-2 text-sm" key={hotelType}>
@@ -33,7 +33,7 @@ const HotelTypesFilter = ({ selectedHotelTypes, onChange }: Props) => {
         </label>
       ))}
       <Button
-        className="text-rose-400 font-bold flex items-center justify-center px-0"
+        className="text-sky-500 font-bold flex items-center justify-center px-0"
         type="link"
         onClick={() => setShowAll(!showAll)}
         style={{ fontFamily: "Montserrat" }}

@@ -56,7 +56,7 @@ const SearchResultsCard = ({ hotel }: Props) => {
         <div className="grid grid-cols-2 items-end whitespace-nowrap">
           <div className="flex gap-1 items-center">
             {hotel.facilities.slice(0, 3).map((facility) => (
-              <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
+              <span className="bg-sky-400 p-2 text-white rounded-lg font-bold text-xs whitespace-nowrap">
                 {facility}
               </span>
             ))}
@@ -69,7 +69,7 @@ const SearchResultsCard = ({ hotel }: Props) => {
         <div className="flex justify-center items-center mt-4">
           <Link
             to={`/detail/${hotel._id}`}
-            className="mb-[-5px] mt-2 rounded bg-mint text-black hover:text-white hover:bg-rose-400 w-full justify-center text-center items-center p-2 font-medium"
+            className="mb-[-5px] mt-2 rounded bg-mint text-black hover:text-white hover:bg-sky-500 w-full justify-center text-center items-center p-2 font-medium"
           >
             View Details
           </Link>
