@@ -1,14 +1,13 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-
 import {
+  BookingType,
   HotelSearchResponse,
   HotelType,
   PaymentIntentResponse,
   UserType,
 } from "../../backend/src/shared/types";
 import { BookingFormData } from "./forms/BookingForm/BookingForm";
-
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const fetchCurrentUser = async (): Promise<UserType> => {
@@ -104,15 +103,6 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
   return response.json();
 };
 
-export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
-  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
-  if (!response.ok) {
-    throw new Error("Error fetching Hotels");
-  }
-
-  return response.json();
-};
-
 export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
     credentials: "include",
@@ -188,6 +178,23 @@ export const searchHotels = async (
   return response.json();
 };
 
+export const fetchHotels = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+  return response.json();
+};
+
+export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching Hotels");
+  }
+
+  return response.json();
+};
+
 export const createPaymentIntent = async (
   hotelId: string,
   numberOfNights: string
@@ -229,6 +236,19 @@ export const createRoomBooking = async (formData: BookingFormData) => {
   }
 };
 
+export const fetchMyBookings = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to fetch bookings");
+  }
+
+  return response.json();
+};
+
+//Remove hotel
 export const removeMyHotelById = async (hotelId: string) => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
     method: "DELETE",
@@ -237,6 +257,24 @@ export const removeMyHotelById = async (hotelId: string) => {
 
   if (!response.ok) {
     throw new Error("Failed to remove hotel");
+  }
+
+  return response.json();
+};
+
+//Fetch bookings by hotel
+export const fetchBookingsByHotel = async (
+  hotelId: string
+): Promise<BookingType[]> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/bookings`,
+    {
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching bookings for hotel");
   }
 
   return response.json();

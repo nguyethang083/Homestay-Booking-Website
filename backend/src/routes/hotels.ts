@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import Hotel from "../models/hotel";
 import { BookingType, HotelSearchResponse } from "../shared/types";
 import { param, validationResult } from "express-validator";
-
 import Stripe from "stripe";
 import verifyToken from "../middleware/auth";
 
@@ -56,6 +55,16 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    res.json(hotels);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Hotel ID is required")],
@@ -76,6 +85,7 @@ router.get(
     }
   }
 );
+
 router.post(
   "/:hotelId/bookings/payment-intent",
   verifyToken,
@@ -220,5 +230,26 @@ const constructSearchQuery = (queryParams: any) => {
 
   return constructedQuery;
 };
+
+// Get bookings information for a hotel
+router.get(
+  "/:hotelId/bookings",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const hotelId = req.params.hotelId;
+
+    try {
+      const hotel = await Hotel.findById(hotelId);
+      if (!hotel) {
+        return res.status(404).json({ message: "Hotel not found" });
+      }
+
+      res.json(hotel.bookings);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error fetching bookings" });
+    }
+  }
+);
 
 export default router;
