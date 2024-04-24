@@ -2,9 +2,11 @@ import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import {
   BookingType,
+  ChangePasswordParams,
   HotelSearchResponse,
   HotelType,
   PaymentIntentResponse,
+  UserProfileFormData,
   UserType,
 } from "../../backend/src/shared/types";
 import { BookingFormData } from "./forms/BookingForm/BookingForm";
@@ -275,6 +277,43 @@ export const fetchBookingsByHotel = async (
 
   if (!response.ok) {
     throw new Error("Error fetching bookings for hotel");
+  }
+
+  return response.json();
+};
+
+export const updateUserProfile = async (formData: UserProfileFormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.message);
+  }
+
+  return responseBody;
+};
+
+export const changePassword = async (params: ChangePasswordParams) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/change-password`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const responseBody = await response.json();
+    throw new Error(responseBody.message || "Failed to change password");
   }
 
   return response.json();

@@ -17,7 +17,7 @@ const Header = () => {
             />
           </NavLink>
         </span>
-        <span className="flex space-x-2">
+        <span className="flex space-x-2 ">
           <NavLink
             className={
               location.pathname === "/"
@@ -27,6 +27,16 @@ const Header = () => {
             to="/"
           >
             Home
+          </NavLink>
+          <NavLink
+            className={
+              location.pathname === "/search"
+                ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
+                : "flex items-center text-black px-2 font-semibold"
+            }
+            to="/search"
+          >
+            Hotels
           </NavLink>
           {isLoggedIn ? (
             <>
@@ -49,6 +59,16 @@ const Header = () => {
                 to="/my-hotels"
               >
                 My Hotels
+              </NavLink>
+              <NavLink
+                className={
+                  location.pathname === "/user-profile"
+                    ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
+                    : "flex items-center text-black px-2 font-semibold"
+                }
+                to="/user-profile"
+              >
+                User Profile
               </NavLink>
               <SignOutButton />
             </>

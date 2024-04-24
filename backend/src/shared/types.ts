@@ -51,3 +51,15 @@ export type PaymentIntentResponse = {
   clientSecret: string;
   totalCost: number;
 };
+
+export type UserProfileFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+export type ChangePasswordParams = {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+};

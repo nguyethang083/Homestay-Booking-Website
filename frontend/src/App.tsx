@@ -17,6 +17,7 @@ import Booking from "./pages/Booking";
 import Home from "./pages/Home";
 import MyBookings from "./pages/MyBookings";
 import GuestBookings from "./pages/GuestBookings";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -112,6 +113,14 @@ const App = () => {
               element={
                 <Layout>
                   <GuestBookings />
+                </Layout>
+              }
+            />
+            <Route
+              path="/user-profile"
+              element={
+                <Layout>
+                  <UserProfile />
                 </Layout>
               }
             />
