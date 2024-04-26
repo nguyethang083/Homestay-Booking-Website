@@ -9,6 +9,7 @@ import HotelTypesFilter from "../components/HotelTypesFilter";
 import FacilitiesFilter from "../components/FacilitiesFilter";
 import PriceFilter from "../components/PriceFilter";
 import { Select } from "antd";
+import { Button } from "antd";
 
 const Search = () => {
   const search = useSearchContext();
@@ -61,11 +62,18 @@ const Search = () => {
     );
   };
 
+  const clearAllFilters = () => {
+    setSelectedPrice(undefined);
+    setSelectedStars([]);
+    setSelectedHotelTypes([]);
+    setSelectedFacilities([]);
+  };
+
   const { Option } = Select;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10">
+      <div className="rounded-lg border border-slate-300 p-5 h-fit top-10">
         <div className="space-y-5">
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
             Filter by:
@@ -86,6 +94,13 @@ const Search = () => {
             selectedFacilities={selectedFacilities}
             onChange={handleFacilityChange}
           />
+          <Button
+            type="primary"
+            className="bg-mint font-medium text-black w-full items-center"
+            onClick={clearAllFilters}
+          >
+            Clear All
+          </Button>{" "}
         </div>
       </div>
       <div className="flex flex-col gap-5">
@@ -98,6 +113,7 @@ const Search = () => {
             value={sortOption}
             onChange={(value) => setSortOption(value)}
             style={{ width: 230 }}
+            className="custom-select"
           >
             <Option value="">Sort By</Option>
             <Option value="starRating">Star Rating</Option>

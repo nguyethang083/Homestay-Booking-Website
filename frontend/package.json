@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^2.7.0",
+    "@types/react-icons": "^3.0.0",
     "antd": "^5.16.1",
+    "framer-motion": "^11.1.7",
     "postcss-nested": "^6.0.1",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.9.0",

@@ -100,7 +100,7 @@ const MyHotel: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-3">
               {hotel.imageUrls.slice(0, 3).map((image) => (
                 <div className="min-h-[200px] min-w-[290px] ml-5">
                   <img
@@ -123,7 +123,7 @@ const MyHotel: React.FC = () => {
               </div>
             </section>
             <div className="px-5 mt-8 max-w-full w-[688px]">
-              <div className="flex gap-3 max-md:flex-col max-md:gap-2">
+              <div className="flex gap-2 max-md:flex-col max-md:gap-2">
                 <div className="rounded p-3 flex items-center bg-rose-400 text-white font-semibold">
                   <FaHotel className="mr-1 " />
                   {hotel.type}
@@ -134,7 +134,7 @@ const MyHotel: React.FC = () => {
                 </span>
               </div>
             </div>
-            <span className="flex justify-end text-lg">
+            <span className="flex justify-end text-lg mr-5">
               <button
                 className="rounded mr-2 flex bg-white text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
                 onClick={() => removeHotel(hotel._id)}

@@ -45,10 +45,10 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="py-6 -mt-8 p-3 bg-white rounded-2xl shadow-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center gap-4"
+      className="py-6 -mt-10 p-3 bg-white rounded-2xl shadow-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center"
       style={{ position: "relative" }}
     >
-      <div className="flex flex-row items-center flex-2 bg-white p-2 rounded border border-solid border-zinc-500">
+      <div className="flex flex-row items-center flex-2 bg-white p-2 border border-solid border-zinc-500">
         <MdTravelExplore size={23} className="mr-2" />
         <input
           placeholder="Where are you going?"
@@ -67,7 +67,7 @@ const SearchBar = () => {
           minDate={minDate}
           maxDate={maxDate}
           placeholderText="Check-in Date"
-          className="min-w-full bg-white p-2 focus:outline-none rounded border border-solid border-zinc-500"
+          className="min-w-full bg-white p-2 focus:outline-none border border-solid border-zinc-500"
           wrapperClassName="min-w-full"
         />
       </div>
@@ -81,11 +81,11 @@ const SearchBar = () => {
           minDate={new Date(new Date(checkIn).setDate(checkIn.getDate() + 1))} // set minDate to checkIn + 1 day
           maxDate={maxDate}
           placeholderText="Check-out Date"
-          className="min-w-full bg-white p-2 focus:outline-none rounded border border-solid border-zinc-500"
+          className="min-w-full bg-white p-2 focus:outline-none border border-solid border-zinc-500"
           wrapperClassName="min-w-full"
         />
       </div>{" "}
-      <div className="md:col-span-1 lg:col-span-1 flex bg-white px-2 py-1 gap-2 rounded border border-solid border-zinc-500">
+      <div className="md:col-span-1 lg:col-span-1 flex bg-white px-2 py-1 gap-2 border border-solid border-zinc-500">
         <label className="items-center flex">
           Adults:
           <input
@@ -109,7 +109,7 @@ const SearchBar = () => {
           />
         </label>
       </div>
-      <div className="col-span-full lg:col-start-3 lg:col-span-2 flex justify-end gap-1 mt-2">
+      <div className="col-span-full lg:col-start-3 lg:col-span-2 flex justify-end gap-1 mt-4">
         <button
           type="button"
           className="flex gap-1 items-center justify-center py-2 rounded px-4 bg-white md:text-base lg:text-lg font-medium sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-auto"
