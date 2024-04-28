@@ -16,16 +16,19 @@ const Header = () => {
     {
       key: "1",
       label: (
-        <NavLink className="font-semibold" to="/user-profile">
-          <UserOutlined /> My Account
+        <NavLink
+          className="font-semibold h-12 flex items-center text-base"
+          to="/user-profile"
+        >
+          <UserOutlined className="mr-2" /> My Account
         </NavLink>
       ),
     },
     {
       key: "2",
       label: (
-        <button>
-          <LogoutOutlined className="" /> <SignOutButton />
+        <button className="h-12 flex items-center text-base">
+          <LogoutOutlined className="mr-2" /> <SignOutButton />
         </button>
       ),
     },
