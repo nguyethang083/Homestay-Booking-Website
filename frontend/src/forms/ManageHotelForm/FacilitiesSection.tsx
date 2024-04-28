@@ -1,10 +1,11 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { hotelFacilities } from "../../config/hotel-options-config";
 import { HotelFormData } from "./ManageHotelForm";
+import { Checkbox } from "antd";
 
 const FacilitiesSection = () => {
   const {
-    register,
+    control,
     formState: { errors },
   } = useFormContext<HotelFormData>();
 
@@ -13,24 +14,36 @@ const FacilitiesSection = () => {
       <h2 className="text-2xl font-bold mb-3">Facilities</h2>
       <div className="grid grid-cols-5 gap-3">
         {hotelFacilities.map((facility) => (
-          <label className="text-sm flex gap-1 text-gray-700 items-center font-medium cursor-pointer">
-            <input
-              type="checkbox"
-              value={facility}
-              className="hidden peer"
-              {...register("facilities", {
-                validate: (facilities) => {
-                  if (facilities && facilities.length > 0) {
-                    return true;
+          <Controller
+            name="facilities"
+            control={control}
+            defaultValue={[]}
+            rules={{
+              validate: (facilities) => {
+                if (facilities && facilities.length > 0) {
+                  return true;
+                } else {
+                  return "At least one facility is required";
+                }
+              },
+            }}
+            render={({ field }) => (
+              <Checkbox
+                value={facility}
+                className="custom-checkbox text-sm flex text-gray-700 font-medium"
+                checked={field.value.includes(facility)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    field.onChange([...field.value, facility]);
                   } else {
-                    return "At least one facility is required";
+                    field.onChange(field.value.filter((f) => f !== facility));
                   }
-                },
-              })}
-            />
-            <span className="w-4 h-4 inline-block border rounded border-black mr-2 peer-checked:bg-mint cursor-pointer"></span>
-            {facility}
-          </label>
+                }}
+              >
+                {facility}
+              </Checkbox>
+            )}
+          />
         ))}
       </div>
       {errors.facilities && (

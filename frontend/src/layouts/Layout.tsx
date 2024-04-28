@@ -18,6 +18,7 @@ const Layout = ({ children }: Props) => {
     location.pathname !== "/register" &&
     location.pathname !== "/add-hotel" &&
     location.pathname !== "/my-hotels" &&
+    location.pathname !== "/user-profile" &&
     !location.pathname.startsWith("/edit-hotel");
 
   return (

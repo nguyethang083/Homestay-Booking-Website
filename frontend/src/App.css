@@ -1,0 +1,38 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+.slick-prev:before, 
+.slick-next:before {
+     color: black;
+     font-size: 40px;
+}
+
+.slick-next:before{
+  position: absolute;
+  right:0;
+   margin-top: -10px;
+   margin-right: 10px;
+}
+
+.slick-next,
+.slick-prev
+{
+  position: absolute;
+  right:0;
+ }
+
+.slick-prev{
+  z-index: 99999;
+  margin-left: 28px;
+}
+
+.category-card:hover .arrow-icon{
+  fill: white;
+}
+
+.slick-arrow {
+  position: absolute;
+  right: 50;
+  margin-right: -5px;
+  transform: scale(0.8); 
+}

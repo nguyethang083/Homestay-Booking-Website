@@ -4,16 +4,21 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
-import { useAppContext } from "./contexts/AppContext";
 import AddHotel from "./pages/AddHotel";
-import EditHotel from "./pages/EditHotel";
-import Detail from "./pages/Detail";
+import { useAppContext } from "./contexts/AppContext";
 import MyHotels from "./pages/MyHotels";
+import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
+import Detail from "./pages/Detail";
+import Booking from "./pages/Booking";
+import Home from "./pages/Home";
+import MyBookings from "./pages/MyBookings";
+import GuestBookings from "./pages/GuestBookings";
+import UserProfile from "./pages/UserProfile";
+import "./App.css";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -24,7 +29,7 @@ const App = () => {
           path="/"
           element={
             <Layout>
-              <p>Home Page Content</p>
+              <Home />
             </Layout>
           }
         />
@@ -37,6 +42,14 @@ const App = () => {
           }
         />
         <Route
+          path="/detail/:hotelId"
+          element={
+            <Layout>
+              <Detail />
+            </Layout>
+          }
+        />
+        <Route
           path="/register"
           element={
             <Layout>
@@ -44,7 +57,6 @@ const App = () => {
             </Layout>
           }
         />
-
         <Route
           path="/sign-in"
           element={
@@ -56,6 +68,15 @@ const App = () => {
 
         {isLoggedIn && (
           <>
+            <Route
+              path="/hotel/:hotelId/booking"
+              element={
+                <Layout>
+                  <Booking />
+                </Layout>
+              }
+            />
+
             <Route
               path="/add-hotel"
               element={
@@ -81,10 +102,26 @@ const App = () => {
               }
             />
             <Route
-              path="/detail/:hotelId"
+              path="/my-bookings"
               element={
                 <Layout>
-                  <Detail/>
+                  <MyBookings />
+                </Layout>
+              }
+            />
+            <Route
+              path="/hotels/:hotelId/bookings"
+              element={
+                <Layout>
+                  <GuestBookings />
+                </Layout>
+              }
+            />
+            <Route
+              path="/user-profile"
+              element={
+                <Layout>
+                  <UserProfile />
                 </Layout>
               }
             />

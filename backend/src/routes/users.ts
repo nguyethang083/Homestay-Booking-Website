@@ -2,8 +2,25 @@ import express, { Request, Response } from "express";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
+import verifyToken from "../middleware/auth";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
+
+router.get("/me", verifyToken, async (req: Request, res: Response) => {
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "something went wrong" });
+  }
+});
 
 router.post(
   "/register",
@@ -50,6 +67,67 @@ router.post(
     } catch (error) {
       console.log(error);
       res.status(500).send({ message: "Something went wrong" });
+    }
+  }
+);
+
+router.put("/me", verifyToken, async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const updates = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(userId, updates, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.put(
+  "/change-password",
+  verifyToken,
+  [
+    check("currentPassword", "Current password is required").notEmpty(),
+    check(
+      "newPassword",
+      "New password with 6 or more characters required"
+    ).isLength({
+      min: 6,
+    }),
+    check("confirmNewPassword", "Confirm new password is required").notEmpty(),
+  ],
+  async (req: Request, res: Response) => {
+    const userId = req.userId;
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ message: "New passwords do not match" });
+    }
+
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ message: "Current password is incorrect" });
+      }
+
+      user.password = newPassword;
+      await user.save();
+
+      res.json({ message: "Password changed successfully" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong" });
     }
   }
 );

@@ -2,18 +2,17 @@ import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 import { RatingBar } from "../components/RatingBar";
-import {BsDash, BsHouse, BsWifi } from "react-icons/bs";
+import { BsDash, BsHouse, BsWifi } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
-import '../index.css'
-
+import "../index.css";
 
 export default function Detail() {
   const renderIcon = (facility: string) => {
     switch (facility) {
       case "Free WiFi":
-        return <BsWifi size={24}/>;
+        return <BsWifi size={24} />;
       case "Outdoor Pool":
         return (
           <img
@@ -55,7 +54,7 @@ export default function Detail() {
           />
         );
       case "Family Rooms":
-        return <BsHouse size={24}/>;
+        return <BsHouse size={24} />;
       case "Non-Smoking Rooms":
         return (
           <img
@@ -65,7 +64,7 @@ export default function Detail() {
           />
         );
       default:
-        return <BsDash size={24}/>;
+        return <BsDash size={24} />;
     }
   };
 
@@ -84,7 +83,7 @@ export default function Detail() {
   }
 
   const images = hotel.imageUrls;
-  
+
   return (
     <>
       <Helmet>
@@ -102,12 +101,12 @@ export default function Detail() {
                   data-testid="hotel-card"
                   className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
                 >
-                <div className="mx-auto flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
+                <div className="mx-auto mt-[33px] flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
                   <div className="flex gap-2 text-sm font-medium text-rose-400">
                     <div>{hotel.country}</div>
-                    <IoIosArrowForward className="text-neutral-900 mt-[4px]"/>
+                    <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
                     <div>{hotel.city}</div>
-                    <IoIosArrowForward className="text-neutral-900 mt-[4px]"/>
+                    <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
                     <div className="text-neutral-900">{hotel.name}</div>
                   </div>
                   <div className="flex w-[40%] flex-col gap-4 md:w-full">
@@ -119,7 +118,7 @@ export default function Detail() {
                           </span>
                           <div className="flex items-left gap-1 my-auto text-xs font-medium">
                             <div className="flex">
-                              <RatingBar 
+                              <RatingBar
                                 value={hotel.starRating}
                                 isEditable={false}
                                 size={20}
@@ -130,7 +129,9 @@ export default function Detail() {
                           </div>
                         </div>
                         <div className="text-2xl font-bold text-right text-rose-400">
-                          <span className="text-3xl leading-10">${hotel.pricePerNight}</span>
+                          <span className="text-3xl leading-10">
+                            ${hotel.pricePerNight}
+                          </span>
                           <span className="text-sm leading-4">/night</span>
                         </div>
                       </div>
@@ -145,8 +146,7 @@ export default function Detail() {
                             {hotel.city}, {hotel.country}
                           </p>
                         </div>
-                        <div className="flex justify-end">
-                        </div>
+                        <div className="flex justify-end"></div>
                       </div>
                     </div>
                   </div>
@@ -154,7 +154,11 @@ export default function Detail() {
                 <div className="mx-auto flex w-full max-w-[1232px] gap-2 md:flex-col md:p-5">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 rounded-none">
                     <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-                      <img src={images[0]} alt="Main Image" className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full"/>
+                      <img
+                        src={images[0]}
+                        alt="Main Image"
+                        className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full"
+                      />
                     </div>
                     <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow self-stretch max-md:mt-2 max-md:max-w-full">
@@ -167,16 +171,16 @@ export default function Detail() {
                           ))}
                         </div>
                       </div>
-                      <div className="mt-2 max-md:max-w-full">
-                        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                          {images.slice(3,5).map((image, index) => (
+                        <div className="mt-2 max-md:max-w-full">
+                          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                            {images.slice(3,5).map((image, index) => (
 
-                            <div key={index} className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${index === 1 ? "ml-5" : ""}`}>
-                              <img loading = "lazy" src={image} className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"/>
-                            </div>
-                          ))}
+                              <div key={index} className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${index === 1 ? "ml-5" : ""}`}>
+                                <img loading = "lazy" src={image} className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"/>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
                       </div>
                     </div>
                   </div>
@@ -187,10 +191,8 @@ export default function Detail() {
                     <h2 className="!font-abel text-2xl font-normal md:text-[22px]">
                       <strong>Overview</strong>
                     </h2>
-                    <div className="w-[1100px]">
-                      <p className="long-text">
-                        {hotel.description} 
-                      </p>
+                    <div className="w-full">
+                      <p className="long-text">{hotel.description}</p>
                     </div>
                   </div>
                   <div className="flex w-[58%] flex-row items-start gap-[30px] md:w-full">
@@ -219,7 +221,7 @@ export default function Detail() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-[600px] h-[300px] mt-[10px]">
+                    <div className="w-[600px] h-[300px]">
                       <GuestInfoForm 
                         pricePerNight={hotel.pricePerNight}
                         hotelId={hotel._id}
@@ -236,9 +238,11 @@ export default function Detail() {
   );
 }
 
-{/* <div className="w-[600px] h-[300px]">
+{
+  /* <div className="w-[600px] h-[300px]">
 <GuestInfoForm 
   pricePerNight={hotel.pricePerNight}
   hotelId={hotel._id}
 />
-</div> */}
+</div> */
+}
