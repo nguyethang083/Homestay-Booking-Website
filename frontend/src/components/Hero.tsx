@@ -9,7 +9,7 @@ const Hero = () => {
       />
       <div className="flex relative flex-col mb-24 ml-28 max-md:mb-10 text-center">
         <h1 className="mt-12 text-5xl font-bold max-md:max-w-full max-md:text-4xl">
-          Make your travel whishlist, we'll do the rest
+          Make your travel wishlist, we'll do the rest
         </h1>
         <p className="mt-4 text-2xl font-medium max-md:max-w-full">
           Special offers to suit your plan

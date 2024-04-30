@@ -78,7 +78,7 @@ const HamburgerMenu = () => {
                       className="text-4xl font-bold"
                     >
                       <Link to="/search" onClick={closeMenu}>
-                        Hotels
+                        Rooms
                       </Link>
                     </motion.a>
                   </li>
@@ -98,7 +98,7 @@ const HamburgerMenu = () => {
                       className="text-4xl font-bold"
                     >
                       <Link to="/my-hotels" onClick={closeMenu}>
-                        My Hotels
+                        My Rooms
                       </Link>
                     </motion.a>
                   </li>

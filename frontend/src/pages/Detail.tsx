@@ -79,7 +79,7 @@ export default function Detail() {
   );
 
   if (!hotel) {
-    return <span>No Hotels found</span>;
+    return <span>No Rooms found</span>;
   }
 
   const images = hotel.imageUrls;
@@ -87,7 +87,7 @@ export default function Detail() {
   return (
     <>
       <Helmet>
-        <title>Hotel Booking</title>
+        <title>Room Booking</title>
         <meta
           name="description"
           content="Web site created using create-react-app"
@@ -97,10 +97,10 @@ export default function Detail() {
         <div className="flex flex-col items-center gap-[34px]">
           <div className="flex flex-col items-center self-stretch">
             <div className="w-full bg-gray-50 ">
-                <div
-                  data-testid="hotel-card"
-                  className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
-                >
+              <div
+                data-testid="hotel-card"
+                className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
+              >
                 <div className="mx-auto mt-[33px] flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
                   <div className="flex gap-2 text-sm font-medium text-rose-400">
                     <div>{hotel.country}</div>
@@ -162,21 +162,38 @@ export default function Detail() {
                     </div>
                     <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow self-stretch max-md:mt-2 max-md:max-w-full">
-                      <div className="max-md:max-w-full">
-                        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                          {images.slice(1,3).map((image, index) => (
-                            <div key={index} className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${index === 1 ? "ml-5" : ""}`}>
-                              <img loading = "lazy" src={image} className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"/>
-                            </div>
-                          ))}
+                        <div className="max-md:max-w-full">
+                          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                            {images.slice(1, 3).map((image, index) => (
+                              <div
+                                key={index}
+                                className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${
+                                  index === 1 ? "ml-5" : ""
+                                }`}
+                              >
+                                <img
+                                  loading="lazy"
+                                  src={image}
+                                  className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
                         <div className="mt-2 max-md:max-w-full">
                           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                            {images.slice(3,5).map((image, index) => (
-
-                              <div key={index} className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${index === 1 ? "ml-5" : ""}`}>
-                                <img loading = "lazy" src={image} className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"/>
+                            {images.slice(3, 5).map((image, index) => (
+                              <div
+                                key={index}
+                                className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${
+                                  index === 1 ? "ml-5" : ""
+                                }`}
+                              >
+                                <img
+                                  loading="lazy"
+                                  src={image}
+                                  className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"
+                                />
                               </div>
                             ))}
                           </div>
@@ -222,7 +239,7 @@ export default function Detail() {
                       </div>
                     </div>
                     <div className="w-[600px] h-[300px]">
-                      <GuestInfoForm 
+                      <GuestInfoForm
                         pricePerNight={hotel.pricePerNight}
                         hotelId={hotel._id}
                       />

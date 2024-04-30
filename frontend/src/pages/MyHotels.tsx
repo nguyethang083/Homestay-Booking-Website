@@ -50,17 +50,15 @@ const MyHotel: React.FC = () => {
   return (
     <div className="space-y-5">
       <span className="flex justify-between">
-        <h1 className="text-3xl font-bold">My Hotels</h1>
+        <h1 className="text-3xl font-bold">My Rooms</h1>
         <Link
           to="/add-hotel"
           className="flex bg-mint rounded text-black text-xl font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
         >
-          Add Hotel
+          Add Room
         </Link>
       </span>
-      <h1 className="text-xl font-bold">
-        You're owning {hotels.length} hotels
-      </h1>
+      <h1 className="text-xl font-bold">You're owning {hotels.length} rooms</h1>
       <div className="flex flex-col gap-8">
         {hotels.map((hotel) => (
           <div
@@ -177,7 +175,7 @@ const MyHotel: React.FC = () => {
           </Button>,
         ]}
       >
-        <p>Are you sure you want to remove this hotel?</p>
+        <p>Are you sure you want to remove this room?</p>
       </Modal>
     </div>
   );

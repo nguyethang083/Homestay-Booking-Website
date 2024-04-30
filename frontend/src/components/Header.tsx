@@ -64,7 +64,7 @@ const Header = () => {
             }
             to="/search"
           >
-            Hotels
+            Rooms
           </NavLink>
           {isLoggedIn && (
             <>
@@ -86,7 +86,7 @@ const Header = () => {
                 }
                 to="/my-hotels"
               >
-                My Hotels
+                My Rooms
               </NavLink>
             </>
           )}
