@@ -79,12 +79,8 @@ const ImagesSection = () => {
               const totalLength =
                 imageFiles.length + (existingImageUrls?.length || 0);
 
-              if (totalLength === 0) {
-                return "At least one image should be added";
-              }
-
-              if (totalLength > 4) {
-                return "Total number of images cannot be more than 4";
+              if (totalLength != 4) {
+                return "The total images must be 4";
               }
 
               // Validate aspect ratio

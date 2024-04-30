@@ -145,7 +145,10 @@ export default function Detail() {
               <div className="mx-auto flex w-full max-w-[1232px] gap-2 md:flex-col md:p-5">
                 <div className="flex flex-wrap">
                   {images.slice(0, 4).map((image, index) => (
-                    <div key={index} className="w-full md:w-1/2 lg:w-1/2">
+                    <div
+                      key={index}
+                      className="w-full md:w-1/2 lg:w-1/2 lg:mb-4 lg:pr-4"
+                    >
                       <img
                         loading="lazy"
                         src={image}
