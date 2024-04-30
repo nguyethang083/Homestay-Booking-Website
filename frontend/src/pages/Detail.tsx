@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
 import { RatingBar } from "../components/RatingBar";
