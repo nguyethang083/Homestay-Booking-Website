@@ -80,7 +80,7 @@ export const signOut = async () => {
 };
 
 export const addMyHotel = async (hotelFormData: FormData) => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+  const response = await fetch(`${API_BASE_URL}/api/my-rooms`, {
     method: "POST",
     credentials: "include",
     body: hotelFormData,
@@ -94,7 +94,7 @@ export const addMyHotel = async (hotelFormData: FormData) => {
 };
 
 export const fetchMyHotels = async (): Promise<HotelType[]> => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+  const response = await fetch(`${API_BASE_URL}/api/my-rooms`, {
     credentials: "include",
   });
 
@@ -106,7 +106,7 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
 };
 
 export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/my-rooms/${hotelId}`, {
     credentials: "include",
   });
 
@@ -119,7 +119,7 @@ export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
 
 export const updateMyHotelById = async (hotelFormData: FormData) => {
   const response = await fetch(
-    `${API_BASE_URL}/api/my-hotels/${hotelFormData.get("hotelId")}`,
+    `${API_BASE_URL}/api/my-rooms/${hotelFormData.get("hotelId")}`,
     {
       method: "PUT",
       body: hotelFormData,
@@ -252,7 +252,7 @@ export const fetchMyBookings = async (): Promise<HotelType[]> => {
 
 //Remove hotel
 export const removeMyHotelById = async (hotelId: string) => {
-  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${hotelId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/my-rooms/${hotelId}`, {
     method: "DELETE",
     credentials: "include",
   });
