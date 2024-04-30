@@ -24,7 +24,7 @@ router.post(
     body("city").notEmpty().withMessage("City is required"),
     body("country").notEmpty().withMessage("Country is required"),
     body("description").notEmpty().withMessage("Description is required"),
-    body("type").notEmpty().withMessage("Hotel type is required"),
+    body("type").notEmpty().withMessage("Room type is required"),
     body("pricePerNight")
       .notEmpty()
       .isNumeric()
@@ -103,7 +103,7 @@ router.put(
       );
 
       if (!hotel) {
-        return res.status(404).json({ message: "Hotel not found" });
+        return res.status(404).json({ message: "Room not found" });
       }
 
       const files = req.files as Express.Multer.File[];
@@ -143,12 +143,12 @@ router.delete("/:id", verifyToken, async (req: Request, res: Response) => {
     });
 
     if (!hotel) {
-      return res.status(404).json({ message: "Hotel not found" });
+      return res.status(404).json({ message: "Room not found" });
     }
 
-    res.status(200).json({ message: "Hotel removed successfully" });
+    res.status(200).json({ message: "Room removed successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error removing hotel" });
+    res.status(500).json({ message: "Error removing room" });
   }
 });
 

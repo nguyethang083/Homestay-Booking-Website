@@ -86,180 +86,123 @@ export default function Detail() {
 
   return (
     <>
-      <Helmet>
-        <title>Room Booking</title>
-        <meta
-          name="description"
-          content="Web site created using create-react-app"
-        />
-      </Helmet>
-      <>
-        <div className="flex flex-col items-center gap-[34px]">
-          <div className="flex flex-col items-center self-stretch">
-            <div className="w-full bg-gray-50 ">
-              <div
-                data-testid="hotel-card"
-                className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
-              >
-                <div className="mx-auto mt-[33px] flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
-                  <div className="flex gap-2 text-sm font-medium text-rose-400">
-                    <div>{hotel.country}</div>
-                    <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
-                    <div>{hotel.city}</div>
-                    <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
-                    <div className="text-neutral-900">{hotel.name}</div>
-                  </div>
-                  <div className="flex w-[40%] flex-col gap-4 md:w-full">
-                    <div className="flex items-start gap-4 sm:flex-col">
-                      <div className="flex w-[12%] flex-col items-start justify-between md:flex-row md:items-center gap-3.5 md:w-full">
-                        <div className="flex gap-4 max-md:flex-wrap">
-                          <span className="bg-rose-400 text-white p-2 rounded-lg font-medium text-sm whitespace-nowrap mr-2">
-                            {hotel.type}
-                          </span>
-                          <div className="flex items-left gap-1 my-auto text-xs font-medium">
-                            <div className="flex">
-                              <RatingBar
-                                value={hotel.starRating}
-                                isEditable={false}
-                                size={20}
-                                activeColor="#FFEE58"
-                              />
-                            </div>
-                            <div>{hotel.starRating} Star Hotel</div>
+      <div className="flex flex-col items-center gap-[34px]">
+        <div className="flex flex-col items-center self-stretch">
+          <div className="w-full bg-gray-50 ">
+            <div
+              data-testid="hotel-card"
+              className="flex flex-col justify-between border border-slate-300 rounded-lg p-8"
+            >
+              <div className="mx-auto mt-[8px] flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
+                <div className="flex gap-2 text-base font-medium text-rose-400">
+                  <div>{hotel.country}</div>
+                  <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
+                  <div>{hotel.city}</div>
+                  <IoIosArrowForward className="text-neutral-900 mt-[4px]" />
+                  <div className="text-neutral-900">{hotel.name}</div>
+                </div>
+                <div className="flex w-[40%] flex-col gap-4 md:w-full">
+                  <div className="flex items-start gap-4 sm:flex-col">
+                    <div className="flex w-[12%] flex-col items-start justify-between md:flex-row md:items-center gap-3.5 md:w-full">
+                      <div className="flex gap-4 max-md:flex-wrap">
+                        <span className="bg-rose-400 text-white p-2 rounded-lg font-medium text-sm whitespace-nowrap mr-2">
+                          {hotel.type}
+                        </span>
+                        <div className="flex items-left gap-1 my-auto text-xs font-medium">
+                          <div className="flex">
+                            <RatingBar
+                              value={hotel.starRating}
+                              isEditable={false}
+                              size={20}
+                              activeColor="#FFEE58"
+                            />
                           </div>
-                        </div>
-                        <div className="text-2xl font-bold text-right text-rose-400">
-                          <span className="text-3xl leading-10">
-                            ${hotel.pricePerNight}
-                          </span>
-                          <span className="text-sm leading-4">/night</span>
+                          <div>{hotel.starRating} Star Room</div>
                         </div>
                       </div>
-                      <div className="flex w-[12%] flex-col items-start justify-between md:flex-row md:items-center gap-3.5 md:w-full">
-                        <div className="flex items-center">
-                          <img
-                            src="https://cdn4.iconfinder.com/data/icons/zoldo-miscellaneous-003/64/address_location_pin-128.png"
-                            alt="location_one"
-                            className="h-[18px] w-[18px] mr-2"
-                          />
-                          <p className="text-left !text-gray-900_bf">
-                            {hotel.city}, {hotel.country}
-                          </p>
-                        </div>
-                        <div className="flex justify-end"></div>
+                      <div className="text-2xl font-bold text-right text-rose-400">
+                        <span className="text-3xl leading-10">
+                          ${hotel.pricePerNight}
+                        </span>
+                        <span className="text-sm leading-4">/night</span>
                       </div>
+                    </div>
+                    <div className="flex w-[12%] flex-col items-start justify-between md:flex-row md:items-center gap-3.5 md:w-full">
+                      <div className="flex items-center">
+                        <img
+                          src="https://cdn4.iconfinder.com/data/icons/zoldo-miscellaneous-003/64/address_location_pin-128.png"
+                          alt="location_one"
+                          className="h-[18px] w-[18px] mr-2"
+                        />
+                        <p className="text-left !text-gray-900_bf">
+                          {hotel.city}, {hotel.country}
+                        </p>
+                      </div>
+                      <div className="flex justify-end"></div>
                     </div>
                   </div>
                 </div>
-                <div className="mx-auto flex w-full max-w-[1232px] gap-2 md:flex-col md:p-5">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 rounded-none">
-                    <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
+              </div>
+              <div className="mx-auto flex w-full max-w-[1232px] gap-2 md:flex-col md:p-5">
+                <div className="flex flex-wrap">
+                  {images.slice(0, 4).map((image, index) => (
+                    <div key={index} className="w-full md:w-1/2 lg:w-1/2">
                       <img
-                        src={images[0]}
-                        alt="Main Image"
-                        className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full"
+                        loading="lazy"
+                        src={image}
+                        className="w-full h-auto"
+                        alt={`Image ${index + 1}`}
                       />
                     </div>
-                    <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow self-stretch max-md:mt-2 max-md:max-w-full">
-                        <div className="max-md:max-w-full">
-                          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                            {images.slice(1, 3).map((image, index) => (
-                              <div
-                                key={index}
-                                className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${
-                                  index === 1 ? "ml-5" : ""
-                                }`}
-                              >
-                                <img
-                                  loading="lazy"
-                                  src={image}
-                                  className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="mt-2 max-md:max-w-full">
-                          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                            {images.slice(3, 5).map((image, index) => (
-                              <div
-                                key={index}
-                                className={`flex flex-col w-6/12 max-md:ml-0 max-md:w-full ${
-                                  index === 1 ? "ml-5" : ""
-                                }`}
-                              >
-                                <img
-                                  loading="lazy"
-                                  src={image}
-                                  className="grow self-stretch w-full aspect-[1.11] max-md:mt-2 max-md:max-w-full md:w-64 md:h-64"
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mx-auto flex w-full max-w-[1232px] flex-col items-start gap-[45px] md:p-5">
+                {/* <div className="h-px w-full self-stretch bg-gray-900_3f" /> */}
+                <div className="flex flex-col items-start gap-[15px] self-stretch">
+                  <h2 className="!font-abel text-2xl font-normal md:text-[22px]">
+                    <strong>Overview</strong>
+                  </h2>
+                  <div className="w-full">
+                    <p className="long-text">{hotel.description}</p>
                   </div>
                 </div>
-                <div className="mx-auto flex w-full max-w-[1232px] flex-col items-start gap-[45px] md:p-5">
-                  {/* <div className="h-px w-full self-stretch bg-gray-900_3f" /> */}
-                  <div className="flex flex-col items-start gap-[15px] self-stretch">
-                    <h2 className="!font-abel text-2xl font-normal md:text-[22px]">
-                      <strong>Overview</strong>
+                <div className="flex w-[58%] flex-row items-start gap-[30px] md:w-full">
+                  <div className="flex-row gap-[50px]">
+                    <h2 className="!font-mitr text-xl font-normal black mb-[15px]">
+                      <strong>Facilities</strong>
                     </h2>
-                    <div className="w-full">
-                      <p className="long-text">{hotel.description}</p>
-                    </div>
-                  </div>
-                  <div className="flex w-[58%] flex-row items-start gap-[30px] md:w-full">
-                    <div className="flex-row gap-[50px]">
-                      <h2 className="!font-mitr text-xl font-normal black mb-[15px]">
-                        <strong>Facilities</strong>
-                      </h2>
-                      <div className="mb-[30px] flex flex-row gap-[10px] md:flex-row sm:flex-row">
-                        <div className="w-[400px] h-[300px] gap-[15px]">
-                          {hotel.facilities.map((facility, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-[10px] mb-[10px] w-[300px]"
-                            >
-                              {renderIcon(facility)}{" "}
-                              <p className="text-base font-medium">
-                                {facility}
-                              </p>
-                            </div>
-                          ))}
-                          {hotel.facilities.length > 7 && (
-                            <h3 className="!text-red-A100">
-                              +{hotel.facilities.length - 7} more
-                            </h3>
-                          )}
-                        </div>
+                    <div className="flex flex-row gap-[10px] md:flex-row sm:flex-row">
+                      <div className="w-[400px] h-[100px] gap-[15px]">
+                        {hotel.facilities.map((facility, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-[10px] mb-[10px] w-[300px]"
+                          >
+                            {renderIcon(facility)}{" "}
+                            <p className="text-base font-medium">{facility}</p>
+                          </div>
+                        ))}
+                        {hotel.facilities.length > 7 && (
+                          <h3 className="!text-red-A100">
+                            +{hotel.facilities.length - 7} more
+                          </h3>
+                        )}
                       </div>
                     </div>
-                    <div className="w-[600px] h-[300px]">
-                      <GuestInfoForm
-                        pricePerNight={hotel.pricePerNight}
-                        hotelId={hotel._id}
-                      />
-                    </div>
+                  </div>
+                  <div className="w-[600px] h-[250px]">
+                    <GuestInfoForm
+                      pricePerNight={hotel.pricePerNight}
+                      hotelId={hotel._id}
+                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </>
+      </div>
     </>
   );
-}
-
-{
-  /* <div className="w-[600px] h-[300px]">
-<GuestInfoForm 
-  pricePerNight={hotel.pricePerNight}
-  hotelId={hotel._id}
-/>
-</div> */
 }
