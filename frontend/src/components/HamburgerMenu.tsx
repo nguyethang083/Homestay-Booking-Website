@@ -89,8 +89,8 @@ const HamburgerMenu = () => {
                         whileHover={{ scale: 1.4 }}
                         className="text-4xl font-bold"
                       >
-                        <Link to="/my-hotels" onClick={closeMenu}>
-                          My Hotels
+                        <Link to="/my-rooms" onClick={closeMenu}>
+                          My Rooms
                         </Link>
                       </motion.a>
                     )}

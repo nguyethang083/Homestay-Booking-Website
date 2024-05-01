@@ -81,13 +81,13 @@ const Header = () => {
               {isHost ? (
                 <NavLink
                   className={
-                    location.pathname === "/my-hotels"
+                    location.pathname === "/my-rooms"
                       ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
                       : "flex items-center text-black px-2 font-semibold border-b-2 border-transparent"
                   }
-                  to="/my-hotels"
+                  to="/my-rooms"
                 >
-                  My Hotels
+                  My Rooms
                 </NavLink>
               ) : null}
             </>
