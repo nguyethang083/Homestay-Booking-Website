@@ -31,6 +31,7 @@ router.post(
     check("password", "Password with 6 or more characters required").isLength({
       min: 6,
     }),
+    check("role", "Role is required").isIn(["Guest", "Host"]),
   ],
   async (req: Request, res: Response) => {
     const errors = validationResult(req);

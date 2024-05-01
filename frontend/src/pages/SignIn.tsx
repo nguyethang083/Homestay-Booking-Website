@@ -24,6 +24,7 @@ const SignIn = () => {
 
   const mutation = useMutation(apiClient.signIn, {
     onSuccess: async () => {
+      //localStorage.setItem("isLoggedIn", "true");
       showToast({ message: "Sign in Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate(location.state?.from?.pathname || "/");
@@ -53,7 +54,7 @@ const SignIn = () => {
             </label>
             <input
               type="email"
-              className="border border-black rounded w-full py-1 px-2 font-normal"
+              className="border border-mint rounded w-full py-1 px-2 font-normal"
               {...register("email", { required: "This field is required" })}
             />
             {errors.email && (
@@ -64,7 +65,7 @@ const SignIn = () => {
             </label>
             <input
               type="password"
-              className="border border-black rounded w-full py-1 px-2 font-normal"
+              className="border border-mint rounded w-full py-1 px-2 font-normal"
               {...register("password", {
                 required: "This field is required",
                 minLength: {

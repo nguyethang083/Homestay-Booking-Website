@@ -1,8 +1,9 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
+import { Select } from "antd";
 
 export type RegisterFormData = {
   firstName: string;
@@ -10,6 +11,7 @@ export type RegisterFormData = {
   email: string;
   password: string;
   confirmPassword: string;
+  role: string;
 };
 
 const Register = () => {
@@ -21,6 +23,7 @@ const Register = () => {
     register,
     watch,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<RegisterFormData>();
 
@@ -42,7 +45,7 @@ const Register = () => {
   return (
     <div className="container mx-auto p-4 flex justify-center min-h-[380px] items-center">
       <form
-        className="flex flex-col gap-5 shadow-lg md:p-10"
+        className="flex flex-col gap-5 shadow-lg md:p-10 p-8"
         onSubmit={onSubmit}
       >
         <h2 className="text-4xl font-bold -mb-2 text-center">
@@ -51,12 +54,35 @@ const Register = () => {
         <h2 className="text-lg opacity-60 mb-3 text-center">
           Create your account and start your journey with us
         </h2>
+        <label className="text-gray-700 text-sm font-bold flex-1">
+          Are you a Guest or Host?
+          <Controller
+            control={control}
+            name="role"
+            rules={{ required: "This field is required" }}
+            render={({ field }) => (
+              <Select
+                {...field}
+                className="w-full"
+                style={{ fontFamily: "Montserrat" }}
+              >
+                <Select.Option value="Guest">Guest</Select.Option>
+                <Select.Option value="Host">Host</Select.Option>
+              </Select>
+            )}
+          />
+          {errors.role && (
+            <span className="text-red-500 font-normal">
+              {errors.role.message}
+            </span>
+          )}
+        </label>
         <div className="flex flex-col md:flex-row gap-5">
           <div className="flex flex-col">
             <label className="text-gray-700 text-sm font-bold">
               First Name
               <input
-                className="border border-black rounded w-full py-1 px-2 font-normal"
+                className="border border-mint rounded w-full py-1 px-2 font-normal"
                 {...register("firstName", {
                   required: "This field is required",
                 })}
@@ -75,7 +101,7 @@ const Register = () => {
             <label className="text-gray-700 text-sm font-bold flex-1">
               Last Name
               <input
-                className="border border-black rounded w-full py-1 px-2 font-normal"
+                className="border border-mint rounded w-full py-1 px-2 font-normal"
                 {...register("lastName", {
                   required: "This field is required",
                 })}
@@ -95,7 +121,7 @@ const Register = () => {
           Email
           <input
             type="email"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("email", { required: "This field is required" })}
           ></input>
           {errors.email && (
@@ -108,7 +134,7 @@ const Register = () => {
           Password
           <input
             type="password"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -127,7 +153,7 @@ const Register = () => {
           Confirm Password
           <input
             type="password"
-            className="border border-black rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-1 px-2 font-normal"
             {...register("confirmPassword", {
               validate: (val) => {
                 if (!val) {
@@ -144,6 +170,7 @@ const Register = () => {
             </span>
           )}
         </label>
+
         <div className="flex flex-col items-center">
           <button
             type="submit"

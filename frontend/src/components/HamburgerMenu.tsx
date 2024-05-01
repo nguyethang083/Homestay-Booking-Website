@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { MdClose } from "react-icons/md";
+import { useAppContext } from "../contexts/AppContext";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { isHost } = useAppContext();
   const closeMenu = () => {
     setIsOpen(false);
   };
@@ -83,24 +84,28 @@ const HamburgerMenu = () => {
                     </motion.a>
                   </li>
                   <li>
-                    <motion.a
-                      whileHover={{ scale: 1.4 }}
-                      className="text-4xl font-bold"
-                    >
-                      <Link to="/my-bookings" onClick={closeMenu}>
-                        My Bookings
-                      </Link>
-                    </motion.a>
+                    {isHost && (
+                      <motion.a
+                        whileHover={{ scale: 1.4 }}
+                        className="text-4xl font-bold"
+                      >
+                        <Link to="/my-hotels" onClick={closeMenu}>
+                          My Hotels
+                        </Link>
+                      </motion.a>
+                    )}
                   </li>
                   <li>
-                    <motion.a
-                      whileHover={{ scale: 1.4 }}
-                      className="text-4xl font-bold"
-                    >
-                      <Link to="/my-hotels" onClick={closeMenu}>
-                        My Hotels
-                      </Link>
-                    </motion.a>
+                    {!isHost && (
+                      <motion.a
+                        whileHover={{ scale: 1.4 }}
+                        className="text-4xl font-bold"
+                      >
+                        <Link to="/my-bookings" onClick={closeMenu}>
+                          My Bookings
+                        </Link>
+                      </motion.a>
+                    )}
                   </li>
                 </motion.ul>
               </motion.div>

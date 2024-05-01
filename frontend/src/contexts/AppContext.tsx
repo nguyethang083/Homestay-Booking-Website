@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Toast from "../components/Toast";
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
@@ -15,6 +15,7 @@ type AppContext = {
   showToast: (toastMessage: ToastMessage) => void;
   isLoggedIn: boolean;
   stripePromise: Promise<Stripe | null>;
+  isHost: boolean;
 };
 
 const AppContext = React.createContext<AppContext | undefined>(undefined);
@@ -27,10 +28,36 @@ export const AppContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
-
-  const { isError } = useQuery("validateToken", apiClient.validateToken, {
-    retry: false,
+  const [isHost, setIsHost] = useState(() => {
+    // Get the initial value from localStorage
+    const savedIsHost = localStorage.getItem("isHost");
+    return savedIsHost ? JSON.parse(savedIsHost) : false;
   });
+
+  const { isError, isSuccess } = useQuery(
+    "validateToken",
+    apiClient.validateToken,
+    {
+      retry: false,
+    }
+  );
+
+  const isLoggedIn = isSuccess;
+
+  useEffect(() => {
+    apiClient
+      .fetchCurrentUser()
+      .then((data) => {
+        console.log(data);
+        const hostStatus = data.role === "Host";
+        setIsHost(hostStatus);
+        // Save to localStorage whenever isHost changes
+        localStorage.setItem("isHost", JSON.stringify(hostStatus));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [isLoggedIn]);
 
   return (
     <AppContext.Provider
@@ -40,6 +67,7 @@ export const AppContextProvider = ({
         },
         isLoggedIn: !isError,
         stripePromise,
+        isHost,
       }}
     >
       {toast && (
@@ -47,7 +75,7 @@ export const AppContextProvider = ({
           message={toast.message}
           type={toast.type}
           onClose={() => setToast(undefined)}
-        ></Toast>
+        />
       )}
       {children}
     </AppContext.Provider>

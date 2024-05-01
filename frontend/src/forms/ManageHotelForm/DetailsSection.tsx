@@ -1,11 +1,46 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
+import axios from "axios";
+import AsyncSelect from "react-select/async";
 
 const DetailsSection = () => {
   const {
     register,
+    control,
     formState: { errors },
   } = useFormContext<HotelFormData>();
+
+  const loadCityOptions = async (inputValue: string) => {
+    try {
+      const response = await axios.get(
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${inputValue}&limit=10`,
+        {
+          headers: {
+            "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+            "X-RapidAPI-Key":
+              "d63b4ac8d3mshf59af497b1a388cp1ba222jsnb808edc741cf",
+          },
+        }
+      );
+      return response.data.data.map((city: any) => ({
+        value: city.name,
+        label: city.name,
+      }));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  const loadCountryOptions = async (inputValue: string) => {
+    const response = await axios.get(
+      `https://restcountries.com/v2/name/${inputValue}`
+    );
+    return response.data.map((country: any) => ({
+      value: country.name,
+      label: country.name,
+    }));
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -15,7 +50,7 @@ const DetailsSection = () => {
           Name
           <input
             type="text"
-            className="border border-mint rounded w-full py-1 px-2 font-normal"
+            className="border border-mint rounded w-full py-[5px] px-2 font-normal"
             {...register("name", { required: "This field is required" })}
           ></input>
           {errors.name && (
@@ -24,22 +59,100 @@ const DetailsSection = () => {
         </label>
         <label className="text-gray-700 text-sm font-bold flex-1">
           City
-          <input
-            type="text"
-            className="border border-mint rounded w-full py-1 px-2 font-normal"
-            {...register("city", { required: "This field is required" })}
-          ></input>
+          <Controller
+            name="city"
+            control={control}
+            rules={{ required: "This field is required" }}
+            render={({ field }) => (
+              <AsyncSelect
+                {...field}
+                loadOptions={loadCityOptions}
+                isClearable
+                placeholder="Select a city"
+                onChange={(value: { value: string; label: string } | null) => {
+                  field.onChange(value ? value.value : "");
+                }}
+                onBlur={field.onBlur}
+                value={
+                  field.value
+                    ? { value: field.value, label: field.value }
+                    : null
+                }
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    borderColor: "#8DD3BB",
+                    minHeight: "30px",
+                  }),
+                  dropdownIndicator: (provided) => ({
+                    ...provided,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  }),
+                  clearIndicator: (provided) => ({
+                    ...provided,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    paddingTop: "1px",
+                    paddingBottom: "1px",
+                  }),
+                }}
+              />
+            )}
+          />
           {errors.city && (
             <span className="text-red-500">{errors.city.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-2">
+        <label className="text-gray-700 text-sm font-bold flex-1">
           Country
-          <input
-            type="text"
-            className="border border-mint rounded w-full py-1 px-2 font-normal"
-            {...register("country", { required: "This field is required" })}
-          ></input>
+          <Controller
+            name="country"
+            control={control}
+            rules={{ required: "This field is required" }}
+            render={({ field }) => (
+              <AsyncSelect
+                {...field}
+                loadOptions={loadCountryOptions}
+                isClearable
+                placeholder="Select a country"
+                onChange={(value: { value: string; label: string } | null) => {
+                  field.onChange(value ? value.value : "");
+                }}
+                onBlur={field.onBlur}
+                value={
+                  field.value
+                    ? { value: field.value, label: field.value }
+                    : null
+                }
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    borderColor: "#8DD3BB",
+                    minHeight: "30px",
+                  }),
+                  dropdownIndicator: (provided) => ({
+                    ...provided,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  }),
+                  clearIndicator: (provided) => ({
+                    ...provided,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    paddingTop: "1px",
+                    paddingBottom: "1px",
+                  }),
+                }}
+              />
+            )}
+          />
           {errors.country && (
             <span className="text-red-500">{errors.country.message}</span>
           )}

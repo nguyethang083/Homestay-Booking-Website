@@ -18,10 +18,10 @@ import Home from "./pages/Home";
 import MyBookings from "./pages/MyBookings";
 import GuestBookings from "./pages/GuestBookings";
 import UserProfile from "./pages/UserProfile";
-import "./App.css";
 
 const App = () => {
-  const { isLoggedIn } = useAppContext();
+  const { isLoggedIn, isHost } = useAppContext();
+
   return (
     <Router>
       <Routes>
@@ -69,55 +69,6 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route
-              path="/hotel/:hotelId/booking"
-              element={
-                <Layout>
-                  <Booking />
-                </Layout>
-              }
-            />
-
-            <Route
-              path="/add-hotel"
-              element={
-                <Layout>
-                  <AddHotel />
-                </Layout>
-              }
-            />
-            <Route
-              path="/edit-hotel/:hotelId"
-              element={
-                <Layout>
-                  <EditHotel />
-                </Layout>
-              }
-            />
-            <Route
-              path="/my-hotels"
-              element={
-                <Layout>
-                  <MyHotels />
-                </Layout>
-              }
-            />
-            <Route
-              path="/my-bookings"
-              element={
-                <Layout>
-                  <MyBookings />
-                </Layout>
-              }
-            />
-            <Route
-              path="/hotels/:hotelId/bookings"
-              element={
-                <Layout>
-                  <GuestBookings />
-                </Layout>
-              }
-            />
-            <Route
               path="/user-profile"
               element={
                 <Layout>
@@ -125,6 +76,61 @@ const App = () => {
                 </Layout>
               }
             />
+            {isHost ? (
+              <>
+                <Route
+                  path="/add-hotel"
+                  element={
+                    <Layout>
+                      <AddHotel />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/edit-hotel/:hotelId"
+                  element={
+                    <Layout>
+                      <EditHotel />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/my-hotels"
+                  element={
+                    <Layout>
+                      <MyHotels />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/hotels/:hotelId/bookings"
+                  element={
+                    <Layout>
+                      <GuestBookings />
+                    </Layout>
+                  }
+                />
+              </>
+            ) : (
+              <>
+                <Route
+                  path="/hotel/:hotelId/booking"
+                  element={
+                    <Layout>
+                      <Booking />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/my-bookings"
+                  element={
+                    <Layout>
+                      <MyBookings />
+                    </Layout>
+                  }
+                />
+              </>
+            )}
           </>
         )}
         <Route path="*" element={<Navigate to="/" />} />

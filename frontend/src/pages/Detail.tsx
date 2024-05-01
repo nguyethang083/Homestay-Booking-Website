@@ -7,8 +7,10 @@ import { useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm";
 import "../index.css";
+import { useAppContext } from "../contexts/AppContext";
 
 export default function Detail() {
+  const { isHost, isLoggedIn } = useAppContext();
   const renderIcon = (facility: string) => {
     switch (facility) {
       case "Free WiFi":
@@ -241,10 +243,12 @@ export default function Detail() {
                       </div>
                     </div>
                     <div className="w-[600px] h-[300px]">
-                      <GuestInfoForm
-                        pricePerNight={hotel.pricePerNight}
-                        hotelId={hotel._id}
-                      />
+                      {(isLoggedIn === false || !isHost) && (
+                        <GuestInfoForm
+                          pricePerNight={hotel.pricePerNight}
+                          hotelId={hotel._id}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

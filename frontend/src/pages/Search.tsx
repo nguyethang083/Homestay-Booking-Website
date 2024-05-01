@@ -112,7 +112,7 @@ const Search = () => {
           <Select
             value={sortOption}
             onChange={(value) => setSortOption(value)}
-            style={{ width: 230 }}
+            style={{ width: 230, fontFamily: "Montserrat" }}
             className="custom-select"
           >
             <Option value="">Sort By</Option>

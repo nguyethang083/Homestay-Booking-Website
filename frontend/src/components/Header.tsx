@@ -8,10 +8,8 @@ import { UserOutlined } from "@ant-design/icons";
 import { LogoutOutlined } from "@ant-design/icons";
 
 const Header = () => {
-  const { isLoggedIn } = useAppContext();
-
+  const { isLoggedIn, isHost } = useAppContext();
   const location = useLocation();
-
   const menuItems = [
     {
       key: "1",
@@ -68,26 +66,30 @@ const Header = () => {
           </NavLink>
           {isLoggedIn && (
             <>
-              <NavLink
-                className={
-                  location.pathname === "/my-bookings"
-                    ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
-                    : "flex items-center text-black px-2 font-semibold border-b-2 border-transparent"
-                }
-                to="/my-bookings"
-              >
-                My Bookings
-              </NavLink>
-              <NavLink
-                className={
-                  location.pathname === "/my-hotels"
-                    ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
-                    : "flex items-center text-black px-2 font-semibold border-b-2 border-transparent"
-                }
-                to="/my-hotels"
-              >
-                My Hotels
-              </NavLink>
+              {!isHost ? (
+                <NavLink
+                  className={
+                    location.pathname === "/my-bookings"
+                      ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
+                      : "flex items-center text-black px-2 font-semibold border-b-2 border-transparent"
+                  }
+                  to="/my-bookings"
+                >
+                  My Bookings
+                </NavLink>
+              ) : null}
+              {isHost ? (
+                <NavLink
+                  className={
+                    location.pathname === "/my-hotels"
+                      ? "flex items-center text-black px-2 font-semibold border-b-2 border-orange-500"
+                      : "flex items-center text-black px-2 font-semibold border-b-2 border-transparent"
+                  }
+                  to="/my-hotels"
+                >
+                  My Hotels
+                </NavLink>
+              ) : null}
             </>
           )}
         </div>

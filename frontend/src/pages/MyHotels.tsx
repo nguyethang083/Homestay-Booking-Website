@@ -15,8 +15,12 @@ const MyHotel: React.FC = () => {
   const [hotels, setHotels] = useState<HotelType[]>([]);
 
   const fetchHotels = async () => {
-    const fetchedHotels = await fetchMyHotels();
-    setHotels(fetchedHotels);
+    try {
+      const fetchedHotels = await fetchMyHotels();
+      setHotels(fetchedHotels);
+    } catch (error) {
+      console.error("Error fetching hotels:", error);
+    }
   };
 
   useEffect(() => {
@@ -37,6 +41,8 @@ const MyHotel: React.FC = () => {
       await removeMyHotelById(hotelToRemove);
       setHotels(hotels.filter((hotel) => hotel._id !== hotelToRemove));
       showToast({ message: "Hotel removed successfully!", type: "SUCCESS" });
+      // Scroll to the top of the page
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error("Failed to remove hotel", error);
       showToast({ message: "Error removing hotel", type: "ERROR" });
@@ -123,7 +129,7 @@ const MyHotel: React.FC = () => {
               </div>
             </section>
             <div className="px-5 mt-8 max-w-full w-[688px]">
-              <div className="flex gap-2 max-md:flex-col max-md:gap-2">
+              <div className="flex gap-3 max-md:flex-col max-md:gap-2">
                 <div className="rounded p-3 flex items-center bg-rose-400 text-white font-semibold">
                   <FaHotel className="mr-1 " />
                   {hotel.type}
