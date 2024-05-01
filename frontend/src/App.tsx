@@ -18,6 +18,7 @@ import Home from "./pages/Home";
 import MyBookings from "./pages/MyBookings";
 import GuestBookings from "./pages/GuestBookings";
 import UserProfile from "./pages/UserProfile";
+import "./App.css";
 
 const App = () => {
   const { isLoggedIn, isHost } = useAppContext();
