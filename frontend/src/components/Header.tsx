@@ -62,7 +62,7 @@ const Header = () => {
             }
             to="/search"
           >
-            Hotels
+            Rooms
           </NavLink>
           {isLoggedIn && (
             <>

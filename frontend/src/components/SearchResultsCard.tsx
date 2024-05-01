@@ -27,7 +27,7 @@ const SearchResultsCard = ({ hotel }: Props) => {
               ))}
               <span className="ml-1 text-sm">
                 {" "}
-                {hotel.starRating} Star Hotel
+                {hotel.starRating} Star Room
               </span>
             </span>
           </div>

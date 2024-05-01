@@ -95,7 +95,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/my-hotels"
+                  path="/my-rooms"
                   element={
                     <Layout>
                       <MyHotels />

@@ -22,6 +22,29 @@ const ImagesSection = () => {
     );
   };
 
+  const validateImageDimensions = async (imageFiles: FileList) => {
+    const isValidDimensions = await Promise.all(
+      Array.from(imageFiles).map(async (file) => {
+        return new Promise<boolean>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target && e.target.result) {
+              const img = new Image();
+              img.src = e.target.result.toString();
+              img.onload = () => {
+                const aspectRatio = img.width / img.height;
+                resolve(aspectRatio === 16 / 9);
+              };
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+      })
+    );
+
+    return isValidDimensions.every((isValid) => isValid);
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-3">Images</h2>
@@ -29,8 +52,12 @@ const ImagesSection = () => {
         {existingImageUrls && (
           <div className="grid grid-cols-6 gap-4">
             {existingImageUrls.map((url) => (
-              <div className="relative group">
-                <img src={url} className="min-h-full object-cover" />
+              <div className="relative group" key={url}>
+                <img
+                  src={url}
+                  className="min-h-full object-cover"
+                  alt="Uploaded"
+                />
                 <button
                   onClick={(event) => handleDelete(event, url)}
                   className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 text-white"
@@ -48,16 +75,20 @@ const ImagesSection = () => {
           accept="image/*"
           className="w-full text-gray-700 font-normal"
           {...register("imageFiles", {
-            validate: (imageFiles) => {
+            validate: async (imageFiles) => {
               const totalLength =
                 imageFiles.length + (existingImageUrls?.length || 0);
 
-              if (totalLength === 0) {
-                return "At least one image should be added";
+              if (totalLength != 4) {
+                return "The total images must be 4";
               }
 
-              if (totalLength > 6) {
-                return "Total number of images cannot be more than 6";
+              // Validate aspect ratio
+              const isValidDimensions = await validateImageDimensions(
+                imageFiles
+              );
+              if (!isValidDimensions) {
+                return "Images must have a 16:9 aspect ratio";
               }
 
               return true;

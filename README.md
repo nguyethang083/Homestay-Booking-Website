@@ -1,1 +1,1 @@
-# Hotel-Booking-Website
+# Homestay-Booking-Website
