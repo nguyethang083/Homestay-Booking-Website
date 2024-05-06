@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../api-client";
+import { Link } from "react-router-dom";
 
 const MyBookings = () => {
   const { data: hotels } = useQuery(
@@ -30,21 +31,31 @@ const MyBookings = () => {
               </div>
             </div>
             {hotel.bookings.map((booking) => (
-              <div>
+              <>
                 <div>
-                  <span className="font-bold mr-2">Dates: </span>
-                  <span>
-                    {new Date(booking.checkIn).toDateString()} -
-                    {new Date(booking.checkOut).toDateString()}
-                  </span>
+                  <div>
+                    <span className="font-bold mr-2">Dates: </span>
+                    <span>
+                      {new Date(booking.checkIn).toDateString()} -{" "}
+                      {new Date(booking.checkOut).toDateString()}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="font-bold mr-2">Guests:</span>
+                    <span>
+                      {booking.adultCount} adults, {booking.childCount} children
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className="font-bold mr-2">Guests:</span>
-                  <span>
-                    {booking.adultCount} adults, {booking.childCount} children
-                  </span>
-                </div>
-              </div>
+                <span className="flex justify-end text-lg mr-5">
+                  <Link
+                    to={`/view-my-booking/${hotel._id}`}
+                    className="rounded flex bg-mint text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
+                  >
+                    View Booking
+                  </Link>
+                </span>
+              </>
             ))}
           </div>
         </div>

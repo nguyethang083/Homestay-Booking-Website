@@ -195,13 +195,15 @@ export default function Detail() {
                       </div>
                     </div>
                   </div>
-                  <div className="w-[600px] h-[250px]">
-                    {(isLoggedIn === false || !isHost) && (
-                      <GuestInfoForm
-                        pricePerNight={hotel.pricePerNight}
-                        hotelId={hotel._id}
-                      />
-                    )}
+                  <div className="w-full">
+                    <div className="w-[600px] h-[250px]">
+                      {(isLoggedIn === false || !isHost) && (
+                        <GuestInfoForm
+                          pricePerNight={hotel.pricePerNight}
+                          hotelId={hotel._id}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

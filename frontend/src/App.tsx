@@ -19,6 +19,7 @@ import MyBookings from "./pages/MyBookings";
 import GuestBookings from "./pages/GuestBookings";
 import UserProfile from "./pages/UserProfile";
 import "./App.css";
+import BookingDetailPage from "./pages/ViewMyBooking";
 
 const App = () => {
   const { isLoggedIn, isHost } = useAppContext();
@@ -127,6 +128,14 @@ const App = () => {
                   element={
                     <Layout>
                       <MyBookings />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/view-my-booking/:hotelId"
+                  element={
+                    <Layout>
+                      <BookingDetailPage />
                     </Layout>
                   }
                 />

@@ -24,6 +24,7 @@ const BookingDetailsSummary = ({
         Location:
         <div className="font-bold">{`${hotel.name}, ${hotel.city}, ${hotel.country}`}</div>
       </div>
+
       <div className="flex justify-between">
         <div>
           Check-in
