@@ -47,16 +47,16 @@ const MyBookings = () => {
                     </span>
                   </div>
                 </div>
-                <span className="flex justify-end text-lg mr-5">
-                  <Link
-                    to={`/view-my-booking/${hotel._id}`}
-                    className="rounded flex bg-mint text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
-                  >
-                    View Booking
-                  </Link>
-                </span>
               </>
             ))}
+            <span className="flex justify-end text-lg mr-5">
+              <Link
+                to={`/view-my-booking/${hotel._id}`}
+                className="rounded flex bg-mint text-black font-medium p-2 transition-all transform duration-200 ease-in-out hover:bg-sky-500 hover:text-white hover:scale-110"
+              >
+                View Booking
+              </Link>
+            </span>
           </div>
         </div>
       ))}
