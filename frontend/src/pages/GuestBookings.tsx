@@ -22,7 +22,7 @@ const GuestBookings = () => {
       <h1 className="text-3xl font-bold">Guest Bookings</h1>
       {bookings.map((booking) => (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6 mb-4">
-          <div className="flex justify-center mb-2">
+          <div className="flex mb-2">
             <span className="font-bold mr-2">Booked by: </span>
             {booking.firstName} {booking.lastName}
           </div>
