@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
 import { useAppContext } from "../../contexts/AppContext";
+import { useState } from "react";
 
 type Props = {
   currentUser: UserType;
@@ -38,10 +39,13 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
   const { showToast } = useAppContext();
 
+  const [bookingSaved, setBookingSaved] = useState(false);
+
   const { mutate: bookRoom, isLoading } = useMutation(
     apiClient.createRoomBooking,
     {
       onSuccess: () => {
+        setBookingSaved(true);
         showToast({ message: "Booking Saved!", type: "SUCCESS" });
       },
       onError: () => {
@@ -141,7 +145,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
       <div className="flex justify-end">
         <button
-          disabled={isLoading}
+          disabled={isLoading || bookingSaved}
           type="submit"
           className="rounded-lg border bg-rose-500 text-white h-full p-2 font-bold hover:bg-rose-500 text-lg opacity-50 hover:opacity-100"
         >
