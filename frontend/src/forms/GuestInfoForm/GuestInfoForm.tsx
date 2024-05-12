@@ -67,14 +67,16 @@ const GuestInfoForm = ({ hotelId }: Props) => {
   };
 
   return (
-    <div className="flex flex-col p-4 guessInfo gap-4 border border-slate-300 rounded-lg">
+    // <div className="flex flex-col p-4 guessInfo gap-4 border border-slate-300 rounded-lg">
+    <div className="flex w-[90%] flex-col justify-between items-start md:flex-col md:items-center gap-10 md:w-full">
       <form
         onSubmit={
           isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)
         }
       >
         <div className="grid grid-cols-1 gap-4 items-center">
-          <div className="flex flex-row gap-[10px] md:flex-row sm:flex-row">
+          {/* <div className="flex flex-row gap-[10px] md:flex-row sm:flex-row"> */}
+          <div className="flex w-[90%] flex-col justify-between items-start md:flex-row md:items-center gap-10 md:w-full">
             <div className="w-[400px] h-[100px] gap-[15px]">
               <div className="flex gap-[30px]">
                 <span className="mr-15 text-base font-medium">Check-in</span>
@@ -116,8 +118,10 @@ const GuestInfoForm = ({ hotelId }: Props) => {
             </div>
           </div>
 
-          <div className="flex bg-white px-2 py-1 gap-2">
-            <label className="items-center flex border border-slate-300 rounded-lg">
+          {/* <div className="flex bg-white px-2 py-1 gap-2"> */}
+          {/* <div className="flex w-[23%] mt-[47px] items-center justify-between gap-5 sm:w-500 md:w-full sm:flex-row"> */}
+          <div className="flex w-[90%] flex-col justify-between items-start md:flex-row md:items-center gap-10">
+            <label className="items-center flex border border-slate-300 rounded-lg mr-1">
               Adults:
               <input
                 className="flex w-full p-1 focus:outline-none font-bold items-center"
