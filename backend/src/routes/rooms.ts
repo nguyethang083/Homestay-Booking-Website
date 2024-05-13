@@ -180,9 +180,23 @@ const constructSearchQuery = (queryParams: any) => {
   let constructedQuery: any = {};
 
   if (queryParams.destination) {
+    const destinationWords = queryParams.destination
+      .normalize("NFD") // normalize the string
+      .replace(/[\u0300-\u036f]/g, "") // remove diacritics
+      .replace(/\s/g, "") // remove spaces
+      .split(",")
+      .map((word: string) => word.trim().toLowerCase()); // convert to lowercase
     constructedQuery.$or = [
-      { city: new RegExp(queryParams.destination, "i") },
-      { country: new RegExp(queryParams.destination, "i") },
+      {
+        city: {
+          $in: destinationWords.map((word: string) => new RegExp(word, "i")),
+        },
+      },
+      {
+        country: {
+          $in: destinationWords.map((word: string) => new RegExp(word, "i")),
+        },
+      },
     ];
   }
 

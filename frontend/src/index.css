@@ -118,3 +118,16 @@ input[type="range"]::-webkit-slider-thumb {
 .ant-btn {
   font-family: "Montserrat";
 }
+
+.custom-auto-complete .ant-select-selector {
+  height: 41.6px !important;
+  border-color: #64748b !important;
+}
+
+.custom-auto-complete .ant-select-selector:focus {
+  border-color: #2196F3 !important;
+}
+
+.custom-auto-complete .ant-select-selector:hover {
+  border-color: #2196F3 !important;
+}
