@@ -1,26 +1,22 @@
+import { Pagination } from "antd";
+
 export type Props = {
   page: number;
   pages: number;
   onPageChange: (page: number) => void;
 };
 
-const Pagination = ({ page, pages, onPageChange }: Props) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= pages; i++) {
-    pageNumbers.push(i);
-  }
-
+const AntPagination = ({ page, pages, onPageChange }: Props) => {
   return (
     <div className="flex justify-center">
-      <ul className="flex border border-slate-300">
-        {pageNumbers.map((number) => (
-          <li className={`px-2 py-1 ${page === number ? "bg-gray-200" : ""}`}>
-            <button onClick={() => onPageChange(number)}>{number}</button>
-          </li>
-        ))}
-      </ul>
+      <Pagination
+        current={page}
+        total={pages * 10}
+        // Ant Design's Pagination component uses total number of data, not pages, so we multiply by 10 assuming each page contains 10 data
+        onChange={onPageChange}
+      />
     </div>
   );
 };
 
-export default Pagination;
+export default AntPagination;

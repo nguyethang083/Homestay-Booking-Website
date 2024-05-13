@@ -3,6 +3,10 @@ import DatePicker from "react-datepicker";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useAppContext } from "../../contexts/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as apiClient from "../../api-client";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 type Props = {
   hotelId: string;
@@ -39,7 +43,6 @@ const GuestInfoForm = ({ hotelId }: Props) => {
 
   const checkIn = watch("checkIn");
   const checkOut = watch("checkOut");
-
   const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
@@ -64,6 +67,53 @@ const GuestInfoForm = ({ hotelId }: Props) => {
       data.childCount
     );
     navigate(`/hotel/${hotelId}/booking`);
+  };
+
+  const [roomAvailability, setRoomAvailability] = useState<string | null>(null);
+  const [showBookNow, setShowBookNow] = useState<boolean>(false);
+  const [hasCheckedAvailability, setHasCheckedAvailability] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    if (checkIn && checkOut) {
+      apiClient
+        .checkRoomAvailability(
+          hotelId,
+          checkIn.toISOString(),
+          checkOut.toISOString()
+        )
+        .then((availability) => {
+          if (availability.isAvailable) {
+            setRoomAvailability("available");
+          } else {
+            setRoomAvailability("unavailable");
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [checkIn, checkOut, hotelId]);
+
+  const checkAvailability = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (checkIn && checkOut) {
+      apiClient
+        .checkRoomAvailability(
+          hotelId,
+          checkIn.toISOString(),
+          checkOut.toISOString()
+        )
+        .then((availability) => {
+          if (availability.isAvailable) {
+            setRoomAvailability("available");
+            setShowBookNow(true);
+          } else {
+            setRoomAvailability("unavailable");
+            setShowBookNow(false);
+          }
+          setHasCheckedAvailability(true);
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   return (
@@ -159,9 +209,41 @@ const GuestInfoForm = ({ hotelId }: Props) => {
             )}
           </div>
           {isLoggedIn ? (
-            <button className="mb-[-5px] mt-2 rounded bg-mint text-black hover:text-white hover:bg-sky-500 w-full justify-center text-center items-center p-2 font-medium">
-              Book Now
-            </button>
+            <>
+              {showBookNow ? (
+                <button className="mb-[-5px] mt-2 rounded bg-mint text-black hover:text-white hover:bg-sky-500 w-full justify-center text-center items-center p-2 font-medium">
+                  Book Now
+                </button>
+              ) : (
+                <button
+                  onClick={checkAvailability}
+                  className="mb-[-5px] mt-2 rounded bg-mint text-black hover:text-white hover:bg-sky-500 w-full justify-center text-center items-center p-2 font-medium"
+                >
+                  Check Availability
+                </button>
+              )}
+              {hasCheckedAvailability && (
+                <p
+                  className={`${
+                    roomAvailability === "unavailable"
+                      ? "text-red-500"
+                      : "text-blue-600"
+                  } font-bold`}
+                >
+                  {roomAvailability === "unavailable" ? (
+                    <span className="flex items-center">
+                      <CloseCircleOutlined className="mr-2" />
+                      <span>This room is not available for your dates</span>
+                    </span>
+                  ) : (
+                    <>
+                      <CheckCircleOutlined className="mr-2" />
+                      {`This room is ${roomAvailability} from ${checkIn.toLocaleDateString()} to ${checkOut.toLocaleDateString()}`}
+                    </>
+                  )}
+                </p>
+              )}
+            </>
           ) : (
             <button className="bg-rose-600 text-white h-full p-2 font-bold hover:bg-blue-500 text-xl">
               Sign in to Book

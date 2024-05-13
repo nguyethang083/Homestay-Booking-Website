@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import Hotel from "../models/hotel";
+import Hotel from "../models/room";
 import { BookingType, HotelSearchResponse } from "../shared/types";
 import { param, validationResult } from "express-validator";
 import Stripe from "stripe";
@@ -251,5 +251,63 @@ router.get(
     }
   }
 );
+
+router.get("/:hotelId/availability", async (req: Request, res: Response) => {
+  const { checkIn, checkOut } = req.query;
+  const hotelId = req.params.hotelId;
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    const isAvailable = hotel.bookings.every((booking) => {
+      // Convert dates to JavaScript Date objects for comparison
+      const bookingCheckIn = new Date(booking.checkIn);
+      const bookingCheckOut = new Date(booking.checkOut);
+      const requestedCheckIn = new Date(checkIn as string);
+      const requestedCheckOut = new Date(checkOut as string);
+
+      // Check if the requested date range overlaps with the booking
+      return (
+        requestedCheckOut <= bookingCheckIn ||
+        requestedCheckIn >= bookingCheckOut
+      );
+    });
+
+    res.json({ isAvailable });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error checking availability" });
+  }
+});
+
+// router.get("/:hotelId/availability", async (req: Request, res: Response) => {
+//   const { checkIn, checkOut } = req.query;
+
+//   const hotel = await Hotel.findById(req.params.hotelId);
+//   if (!hotel) {
+//     return res.status(404).json({ message: "Hotel not found" });
+//   }
+
+//   const isAvailable = isRoomAvailable(hotel.bookings, new Date(checkIn), new Date(checkOut));
+//   res.json({ isAvailable });
+// });
+
+// function isRoomAvailable(bookings: BookingType[], checkIn: Date, checkOut: Date): boolean {
+//   for (let booking of bookings) {
+//     if (
+//       (checkIn >= booking.checkIn && checkIn < booking.checkOut) ||
+//       (checkOut > booking.checkIn && checkOut <= booking.checkOut)
+//     ) {
+//       // The requested booking dates overlap with an existing booking
+//       return false;
+//     }
+//   }
+
+//   // The requested booking dates do not overlap with any existing bookings
+//   return true;
+// }
 
 export default router;

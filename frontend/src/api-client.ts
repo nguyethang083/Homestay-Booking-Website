@@ -318,3 +318,19 @@ export const changePassword = async (params: ChangePasswordParams) => {
 
   return response.json();
 };
+
+export const checkRoomAvailability = async (
+  hotelId: string,
+  checkIn: string,
+  checkOut: string
+): Promise<{ isAvailable: boolean }> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/availability?checkIn=${checkIn}&checkOut=${checkOut}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error checking room availability");
+  }
+
+  return response.json();
+};
