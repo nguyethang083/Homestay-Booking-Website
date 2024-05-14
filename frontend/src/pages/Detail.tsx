@@ -89,10 +89,10 @@ export default function Detail() {
     <>
       <div className="flex flex-col items-center gap-[34px]">
         <div className="flex flex-col items-center self-stretch">
-          <div className="w-full bg-gray-50 ">
+          <div className="w-full bg-[#f6f8fc] rounded-xl shadow-2xl">
             <div
               data-testid="hotel-card"
-              className="flex flex-col justify-between border border-slate-300 rounded-lg p-8"
+              className="flex flex-col justify-between p-8"
             >
               <div className="mx-auto mt-[8px] flex w-full max-w-[1232px] items-left justify-between gap-5 md:flex-col md:p-5 ">
                 <div className="flex gap-2 text-base font-medium text-rose-400">

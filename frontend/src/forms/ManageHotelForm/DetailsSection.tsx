@@ -2,6 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { HotelFormData } from "./ManageHotelForm";
 import axios from "axios";
 import AsyncSelect from "react-select/async";
+import { debounce } from "lodash";
 
 const DetailsSection = () => {
   const {
@@ -10,7 +11,7 @@ const DetailsSection = () => {
     formState: { errors },
   } = useFormContext<HotelFormData>();
 
-  const loadCityOptions = async (inputValue: string) => {
+  const loadCityOptions = debounce(async (inputValue: string) => {
     try {
       const response = await axios.get(
         `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${inputValue}&limit=10`,
@@ -30,9 +31,9 @@ const DetailsSection = () => {
       console.error(error);
       return [];
     }
-  };
+  }, 500);
 
-  const loadCountryOptions = async (inputValue: string) => {
+  const loadCountryOptions = debounce(async (inputValue: string) => {
     const response = await axios.get(
       `https://restcountries.com/v2/name/${inputValue}`
     );
@@ -40,7 +41,7 @@ const DetailsSection = () => {
       value: country.name,
       label: country.name,
     }));
-  };
+  }, 500);
 
   return (
     <div className="flex flex-col gap-4">

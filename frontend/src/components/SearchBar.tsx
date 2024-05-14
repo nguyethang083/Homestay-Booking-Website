@@ -7,6 +7,7 @@ import { message } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import axios from "axios";
 import _ from "lodash";
+import { UserOutlined } from "@ant-design/icons";
 
 const { RangePicker } = DatePicker;
 
@@ -77,7 +78,9 @@ const SearchBar = () => {
         value={destination}
         onChange={setDestination}
         placeholder="Where are you going?"
-        className="md:col-span-3 flex flex-row items-center custom-auto-complete mb-1 md:mb-0"
+        className="md:col-span-3 flex flex-row items-center custom-auto-complete mb-1 md:mb-0 font-bold"
+        style={{ fontFamily: "Montserrat" }}
+        allowClear
       />
       <div className="md:col-span-2">
         <RangePicker
@@ -101,32 +104,38 @@ const SearchBar = () => {
           disabledDate={(current) =>
             current && current.isBefore(dayjs(), "day")
           }
-          className="min-w-full bg-white p-[9px] focus:outline-none border border-solid border-zinc-500 rounded-[6px]"
+          className="min-w-full bg-white p-[9px] focus:outline-none border border-solid border-zinc-500 rounded-[6px] font-bold"
+          format="ddd, MMM DD"
+          style={{ fontFamily: "Montserrat" }}
+          allowClear={true}
         />
       </div>
       <div className="md:col-span-2 flex bg-white px-2 py-1 gap-2 border border-solid rounded-[6px] border-zinc-500 hover:border-blue-500 focus-within:border-blue-500">
-        <label className="items-center flex">
-          Adults:
-          <input
-            className="w-full p-1 focus:outline-none font-bold"
-            type="number"
-            min={0}
-            max={20}
-            value={adultCount}
-            onChange={(event) => setAdultCount(parseInt(event.target.value))}
-          />
-        </label>
-        <label className="items-center flex ">
-          Children:
-          <input
-            className="w-full p-1 focus:outline-none font-bold"
-            type="number"
-            min={0}
-            max={20}
-            value={childCount}
-            onChange={(event) => setChildCount(parseInt(event.target.value))}
-          />
-        </label>
+        <UserOutlined className="self-center mr-2" />
+        <div className="flex-grow flex justify-center">
+          <label className="items-center flex font-medium">
+            Adults:
+            <input
+              className="w-full p-1 focus:outline-none font-bold"
+              type="number"
+              min={0}
+              max={20}
+              value={adultCount}
+              onChange={(event) => setAdultCount(parseInt(event.target.value))}
+            />
+          </label>
+          <label className="items-center flex font-medium">
+            Children:
+            <input
+              className="w-full p-1 focus:outline-none font-bold"
+              type="number"
+              min={0}
+              max={20}
+              value={childCount}
+              onChange={(event) => setChildCount(parseInt(event.target.value))}
+            />
+          </label>
+        </div>
       </div>
       <div className="col-span-full lg:col-start-6 lg:col-span-2 flex justify-end gap-1 mt-4">
         <button

@@ -146,7 +146,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         <button
           disabled={isLoading || bookingSaved}
           type="submit"
-          className="rounded-lg border bg-rose-500 text-white h-full p-2 font-bold hover:bg-rose-500 text-lg opacity-50 hover:opacity-100"
+          className="rounded-lg border bg-rose-500 text-white h-full p-2 font-bold text-lg opacity-100 hover:opacity-70 disabled:bg-gray-500"
         >
           {isLoading ? "Saving..." : "Confirm Booking"}
         </button>
