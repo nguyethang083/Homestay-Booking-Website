@@ -3,7 +3,7 @@ import quotationMark from "../assets/images/quotationMark.png";
 
 const FeedbackCard = () => {
   return (
-    <div className="bg-white p-8 rounded-3xl shadow-md my-8 mx-2">
+    <div className="bg-white p-8 rounded-3xl shadow-md my-8 mx-2 h-[400px]">
       <div className="flex justify-between">
         <div className="flex gap-4">
           <img src={avatar} />

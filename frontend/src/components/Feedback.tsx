@@ -1,5 +1,7 @@
 import Slider from "react-slick";
 import FeedbackCard from "./FeedBackCard";
+import FeedbackCard2 from "./FeedBackCard2";
+import FeedbackCard3 from "./FeedBackCard3";
 
 const Feedback = () => {
   const settings = {
@@ -53,8 +55,8 @@ const Feedback = () => {
 
         <Slider {...settings}>
           <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
+          <FeedbackCard2 />
+          <FeedbackCard3 />
         </Slider>
       </div>
     </div>
