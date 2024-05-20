@@ -106,7 +106,7 @@ export default function Detail() {
                   <div className="flex items-start gap-4 sm:flex-col">
                     <div className="flex w-[12%] flex-col items-start justify-between md:flex-row md:items-center gap-3.5 md:w-full">
                       <div className="flex gap-4 max-md:flex-wrap">
-                        <span className="bg-rose-400 text-white p-2 rounded-lg font-medium text-sm whitespace-nowrap mr-2">
+                        <span className="bg-rose-400 text-white p-2 rounded-lg font-medium text-sm whitespace-nowrap">
                           {hotel.type}
                         </span>
                         <div className="flex items-left gap-1 my-auto text-xs font-medium">
@@ -171,8 +171,8 @@ export default function Detail() {
                     <p className="long-text">{hotel.description}</p>
                   </div>
                 </div>
-                <div className="flex w-[58%] flex-row items-start gap-[30px] md:w-full">
-                  <div className="flex-row gap-[50px]">
+                <div className="flex flex-col md:flex-row w-full">
+                  <div className="flex-1">
                     <h2 className="!font-mitr text-xl font-normal black mb-[15px]">
                       <strong>Facilities</strong>
                     </h2>
@@ -195,15 +195,18 @@ export default function Detail() {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full">
-                    <div className="w-[600px] h-[250px]">
-                      {(isLoggedIn === false || !isHost) && (
+                  <div className="flex-1">
+                    {(isLoggedIn === false || !isHost) && (
+                      <>
+                        <h2 className="text-xl font-normal black mb-[15px] ">
+                          <strong> Availability</strong>
+                        </h2>
                         <GuestInfoForm
                           pricePerNight={hotel.pricePerNight}
                           hotelId={hotel._id}
                         />
-                      )}
-                    </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

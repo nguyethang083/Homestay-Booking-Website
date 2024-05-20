@@ -117,67 +117,56 @@ const GuestInfoForm = ({ hotelId }: Props) => {
   };
 
   return (
-    // <div className="flex flex-col p-4 guessInfo gap-4 border border-slate-300 rounded-lg">
-    <div className="flex w-[90%] flex-col justify-between items-start md:flex-col md:items-center gap-10 md:w-full">
+    <div className="flex flex-col p-4 shadow-neutral-300 shadow-xl border rounded-xl gap-4">
       <form
         onSubmit={
           isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)
         }
       >
         <div className="grid grid-cols-1 gap-4 items-center">
-          {/* <div className="flex flex-row gap-[10px] md:flex-row sm:flex-row"> */}
-          <div className="flex w-[90%] flex-col justify-between items-start md:flex-row md:items-center gap-10 md:w-full">
-            <div className="w-[400px] h-[100px] gap-[15px]">
-              <div className="flex gap-[30px]">
-                <span className="mr-15 text-base font-medium">Check-in</span>
-                <DatePicker
-                  disabled
-                  required
-                  selected={checkIn}
-                  onChange={(date) => setValue("checkIn", date as Date)}
-                  selectsStart
-                  startDate={checkIn}
-                  endDate={checkOut}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                  placeholderText="Check-in Date"
-                  className="min-w-full bg-white p-2 focus:outline-none border border-slate-300 rounded-lg"
-                  wrapperClassName="min-w-full"
-                />
-              </div>
-
-              <div className="flex gap-[30px]">
-                <span className="mr-15 text-base font-medium">Check-out</span>
-                <DatePicker
-                  disabled
-                  required
-                  selected={checkOut}
-                  onChange={(date) => setValue("checkOut", date as Date)}
-                  selectsStart
-                  startDate={checkIn}
-                  endDate={checkOut}
-                  minDate={
-                    new Date(new Date(checkIn).setDate(checkIn.getDate() + 1))
-                  } // set minDate to checkIn + 1 day
-                  maxDate={maxDate}
-                  placeholderText="Check-out Date"
-                  className="min-w-full bg-white p-2 focus:outline-none border border-slate-300 rounded-lg"
-                  wrapperClassName="min-w-full"
-                />
-              </div>
-            </div>
+          <div>
+            <DatePicker
+              required
+              selected={checkIn}
+              onChange={(date) => setValue("checkIn", date as Date)}
+              selectsStart
+              startDate={checkIn}
+              endDate={checkOut}
+              minDate={minDate}
+              maxDate={maxDate}
+              placeholderText="Check-in Date"
+              className="min-w-full bg-white p-2 focus:outline-none border rounded border-mint"
+              wrapperClassName="min-w-full"
+              disabled
+            />
           </div>
-
-          {/* <div className="flex bg-white px-2 py-1 gap-2"> */}
-          {/* <div className="flex w-[23%] mt-[47px] items-center justify-between gap-5 sm:w-500 md:w-full sm:flex-row"> */}
-          <div className="flex w-[90%] flex-col justify-between items-start md:flex-row md:items-center gap-10">
-            <label className="items-center flex border border-slate-300 rounded-lg mr-1">
+          <div>
+            <DatePicker
+              required
+              selected={checkOut}
+              onChange={(date) => setValue("checkOut", date as Date)}
+              selectsStart
+              startDate={checkIn}
+              endDate={checkOut}
+              minDate={
+                new Date(new Date(checkIn).setDate(checkIn.getDate() + 1))
+              } // set minDate to checkIn + 1 day
+              maxDate={maxDate}
+              placeholderText="Check-out Date"
+              className="min-w-full bg-white p-2 focus:outline-none border rounded border-mint"
+              wrapperClassName="min-w-full"
+              disabled
+            />
+          </div>
+          <div className="flex bg-white px-2 py-1 gap-2 border rounded border-mint">
+            <label className="items-center flex">
               Adults:
               <input
-                className="flex w-full p-1 focus:outline-none font-bold items-center"
+                className="w-full p-1 focus:outline-none font-bold bg-white"
                 type="number"
                 min={1}
                 max={20}
+                disabled
                 {...register("adultCount", {
                   required: "This field is required",
                   min: {
@@ -186,20 +175,19 @@ const GuestInfoForm = ({ hotelId }: Props) => {
                   },
                   valueAsNumber: true,
                 })}
-                disabled
               />
             </label>
-            <label className="items-center flex border border-slate-300 rounded-lg">
+            <label className="items-center flex">
               Children:
               <input
-                className=" flex w-full p-1 focus:outline-none font-bold items-center"
+                className="w-full p-1 focus:outline-none font-bold bg-white"
                 type="number"
                 min={0}
                 max={20}
+                disabled
                 {...register("childCount", {
                   valueAsNumber: true,
                 })}
-                disabled
               />
             </label>
             {errors.adultCount && (
