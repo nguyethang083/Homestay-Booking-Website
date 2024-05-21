@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import DatePicker from "react-datepicker";
+import { DatePicker, message } from "antd";
 import { useSearchContext } from "../../contexts/SearchContext";
 import { useAppContext } from "../../contexts/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import * as apiClient from "../../api-client";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 type Props = {
   hotelId: string;
@@ -43,7 +44,7 @@ const GuestInfoForm = ({ hotelId }: Props) => {
 
   const checkIn = watch("checkIn");
   const checkOut = watch("checkOut");
-  const minDate = new Date();
+  // const minDate = new Date();
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
@@ -93,6 +94,11 @@ const GuestInfoForm = ({ hotelId }: Props) => {
     }
   }, [checkIn, checkOut, hotelId]);
 
+  useEffect(() => {
+    setHasCheckedAvailability(false);
+    setShowBookNow(false);
+  }, [checkIn, checkOut]);
+
   const checkAvailability = (event: React.MouseEvent) => {
     event.preventDefault();
     if (checkIn && checkOut) {
@@ -116,6 +122,8 @@ const GuestInfoForm = ({ hotelId }: Props) => {
     }
   };
 
+  const { RangePicker } = DatePicker;
+
   return (
     <div className="flex flex-col p-4 shadow-neutral-300 shadow-xl border rounded-xl gap-4">
       <form
@@ -125,37 +133,34 @@ const GuestInfoForm = ({ hotelId }: Props) => {
       >
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
-            <DatePicker
+            <RangePicker
               required
-              selected={checkIn}
-              onChange={(date) => setValue("checkIn", date as Date)}
-              selectsStart
-              startDate={checkIn}
-              endDate={checkOut}
-              minDate={minDate}
-              maxDate={maxDate}
-              placeholderText="Check-in Date"
-              className="min-w-full bg-white p-2 focus:outline-none border rounded border-mint"
-              wrapperClassName="min-w-full"
-              disabled
-            />
-          </div>
-          <div>
-            <DatePicker
-              required
-              selected={checkOut}
-              onChange={(date) => setValue("checkOut", date as Date)}
-              selectsStart
-              startDate={checkIn}
-              endDate={checkOut}
-              minDate={
-                new Date(new Date(checkIn).setDate(checkIn.getDate() + 1))
-              } // set minDate to checkIn + 1 day
-              maxDate={maxDate}
-              placeholderText="Check-out Date"
-              className="min-w-full bg-white p-2 focus:outline-none border rounded border-mint"
-              wrapperClassName="min-w-full"
-              disabled
+              value={[dayjs(checkIn), dayjs(checkOut)]}
+              onChange={(dates) => {
+                if (dates) {
+                  if (
+                    dates[0] &&
+                    dates[1] &&
+                    dates[0].isSame(dates[1], "day")
+                  ) {
+                    setValue("checkIn", dates[0].toDate());
+                    setValue("checkOut", dates[0].add(1, "day").toDate());
+                    message.error(
+                      "Check-out date must be greater than check-in date.",
+                      2
+                    );
+                  } else if (dates[0] && dates[1]) {
+                    setValue("checkIn", dates[0].toDate());
+                    setValue("checkOut", dates[1].toDate());
+                  }
+                }
+              }}
+              disabledDate={(current) =>
+                current && current.isBefore(dayjs(), "day")
+              }
+              className="min-w-full bg-white p-2 focus:outline-none border rounded border-mint font-medium"
+              style={{ fontFamily: "Montserrat" }}
+              format="DD/MM/YYYY"
             />
           </div>
           <div className="flex bg-white px-2 py-1 gap-2 border rounded border-mint">
@@ -166,7 +171,6 @@ const GuestInfoForm = ({ hotelId }: Props) => {
                 type="number"
                 min={1}
                 max={20}
-                disabled
                 {...register("adultCount", {
                   required: "This field is required",
                   min: {
@@ -184,7 +188,6 @@ const GuestInfoForm = ({ hotelId }: Props) => {
                 type="number"
                 min={0}
                 max={20}
-                disabled
                 {...register("childCount", {
                   valueAsNumber: true,
                 })}

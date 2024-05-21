@@ -198,7 +198,7 @@ export default function Detail() {
                   <div className="flex-1">
                     {(isLoggedIn === false || !isHost) && (
                       <>
-                        <h2 className="text-xl font-normal black mb-[15px] ">
+                        <h2 className="text-xl font-normal black mb-[15px]">
                           <strong> Availability</strong>
                         </h2>
                         <GuestInfoForm
